@@ -1,4 +1,1 @@
-#Here i made the exercises asked during he second lecture
-I had a few difficuties at first, but then I guess that I have solved
-Line for testing the conflict adaptation of git
-my problems
+#I modify the code in the local repository, maybe ill start a conflict
