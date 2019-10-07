@@ -20,10 +20,10 @@ compilation includes several steps :  SRC --> PreProcessor--> Assembly .s (last 
 Use semicolons
 
 we start by variable.cc  variables are entities of particular types  int double char bool
-//C++ is a static language eveery variable needs a type
+//C++ is a static language every variable needs a type
 
 new way to define variables int a{-1}
-Private words cant be used as variables, variabels cant start with numbers
+Private words cant be used as variables, variables can't start with numbers
 Different type occupy different sizes of memory
 4 concepts type value object variable
 
@@ -32,7 +32,7 @@ Different type occupy different sizes of memory
 ##each object has a type: a type tells us how to interpret the object and what to do with it
 ## a variable is a named object
 
-c++ is strongly checked
+c++ is strongly checked (Type integrity is verified during compilation)
 
 const -> we wont change the value
 constexpr -> knowing that an expression is constant gives us a better performance during the compilation, because it is calculated during the compilation

@@ -41,8 +41,8 @@ int main() {
   // narrowing effect
   int var = 6.9; // try to initialize var with the universal and
                  // uniform initialization
-  // int v_narrow {6.9}; // compiler error or warning with variables
-  // int v_narrow_w {int(a+b)}; // suppress error/warning with a cast
+   //int v_narrow {6.9}; // compiler error or warning with variables
+   //int v_narrow_w {int(a+b)}; // suppress error/warning with a cast
 
   std::cout << var << "\n";
 
@@ -76,7 +76,7 @@ int main() {
   // constants
 
   const int cc{7};
-  // cc = 9;			// error
+   //cc = 9;			// error
 
   constexpr double ce{cc * 8.1234 / M_PI}; // evaluated at compile-time
 
