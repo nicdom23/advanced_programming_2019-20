@@ -16,27 +16,24 @@ while(std::getline(std::cin,line))
 {
  if (line.length()<= n) std::cout<<" "<<line;
  else {
-	std::string word{""};
-	int counter{};	
-        int length{};	
-	for (auto x : line)
-	{ 
-	   if (length == n)
-		{		   
-			std::cout<<std::endl<<word<<" ";
-			word = "";
-			length = 0;
-		}
-		else
-		{
- 			word = word+x;
-			length ++;
-		}
 		
-         }
+       
        }
 }
-
+std::string str = "geeksforgeeks a computer science"; 
+    std::string str1 = "geeks"; 
+  
+    // Find first occurrence of "geeks" 
+    size_t found = str.find(str1); 
+    if (found != std::string::npos) 
+        std::cout << "First occurrence is " << found << std::endl; 
+  
+    // Find next occurrence of "geeks". Note here we pass 
+    // "geeks" as C style string. 
+    char arr[] = "geeks"; 
+    found = str.find(arr, found+1); 
+    if (found != std::string::npos) 
+        std::cout << "Next occurrence is " << found << std::endl; 
 
 
 return 0;
