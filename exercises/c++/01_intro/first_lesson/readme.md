@@ -1,1 +1,1 @@
-#I modify the code in the local repository, maybe ill start a conflict
+#Here is the final byproduct of the conflict correction
