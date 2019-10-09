@@ -2,7 +2,7 @@
 
 // forward declaration
 int dwim(const int a, const int b);
-double dwim(const double a, const double b);
+double dwim(const double a, const double b); //i defined here the functions declarations so the compiler knows the types, the definitions will go lower
 float dwim(const float a, const float b);
 
 int main() {

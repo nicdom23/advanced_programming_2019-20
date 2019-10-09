@@ -1,12 +1,12 @@
 #include <iostream>
 #include <utility>  //std::swap
 
-void buggy_swap(int a, int b);
-void c_swap(int* a, int* b);
-void cxx_swap(int& a, int& b);
-
+void buggy_swap(int a, int b); //we learnt why this is wrong, functions are passed by values
+void c_swap(int* a, int* b);//pointers stroe the  adress of the value
+void cxx_swap(int& a, int& b); //C++ stiled, i pass two refereences, tey are deifned on int& andnot int &
+				//pass by reference
 template <typename T>
-void templ_swap(T& a, T& b);
+void templ_swap(T& a, T& b);//for completensse this is added
 
 int main() {
   int a = 3;
@@ -16,7 +16,7 @@ int main() {
 
   a = 3;
   b = 7;
-  c_swap(&a, &b);
+  c_swap(&a, &b); //these are pointers
   std::cout << "    c:\texpected 7 3 --> " << a << " " << b << "\n";
 
   a = 3;
