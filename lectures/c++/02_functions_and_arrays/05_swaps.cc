@@ -2,8 +2,8 @@
 #include <utility>  //std::swap
 
 void buggy_swap(int a, int b); //we learnt why this is wrong, functions are passed by values
-void c_swap(int* a, int* b);//pointers stroe the  adress of the value
-void cxx_swap(int& a, int& b); //C++ stiled, i pass two refereences, tey are deifned on int& andnot int &
+void c_swap(int* a, int* b);//pointers sttored the  adress of the value
+void cxx_swap(int& a, int& b); //C++ styled, i pass two refereences, they are defined on int& and not int &
 				//pass by reference
 template <typename T>
 void templ_swap(T& a, T& b);//for completensse this is added

@@ -31,7 +31,7 @@ int main() {
   double ad[7]{1.1, 2.2, 3.3};  // syntax to compose an array,it starts with 3 doubles and the rest is set to 0
 
   *ad = 9.9;  // an array is implicitly converted to    this works as ad[0] = 9.9
-               // a pointer to its first element;
+  *(ad+1) = 8.8;// a pointer to its first element;      this works as ad[1] = 8.8
   for (std::size_t k{0}; k < 7; ++k)
     std::cout << ad[k] << std::endl;
 
@@ -40,7 +40,7 @@ int main() {
   surprise(ad, 7);
   std::cout << "after surprise()" << std::endl;
   for (std::size_t k{0}; k < 7; ++k)
-    std::cout << ad[k] << std::endl;   //well the array is changed!! array name is not a normal varible.
+    std::cout << ad[k] << std::endl;   //well the array is changed!! array name is not a normal variable.
 				//we point by value an array yet it is passed as a reference
 
   return 0;
