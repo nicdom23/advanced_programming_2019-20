@@ -35,7 +35,7 @@ int main(){
 				}
 		}
 		if (flag == true){	
-			v2.reserve(size_2+1);
+			//v2.reserve(size_2+1);
 			v2.push_back(i);
 			std::cout<<"in array is:"<<v2[size_2]<<std::endl;	
 			size_2++;
