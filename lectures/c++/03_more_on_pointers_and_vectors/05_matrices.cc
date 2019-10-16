@@ -27,15 +27,18 @@ int main() {
       std::cout << &ma[i][j] << " ";
     std::cout << std::endl;  //we print the adrresses,they are contoìiguius, matrix is tored as a lng array of elements
   }
+
 //how to pass the matrix as a reference to a function
   // int *pma = ma; 		// error
   // int *pma[5] = ma;		// error
-  int* p = &ma[0][0];
+  int* p{reinterpret_cast<int*>(ma)};
+  // int* p {&ma[0][0]};
+
 
   // print_ma(ma, 6, 5); 	// error
   print_ma(p, 6, 5);
 
-  int* d_ma = new int[6 * 5]{};
+  auto d_ma = new int[6 * 5]{};
 
   std::cout << std::endl;
 
