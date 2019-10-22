@@ -26,7 +26,7 @@ int main() {
 
   for (i = 0; i < 5; ++i) {
     if (i == 2)
-      break;
+      break; //stops the cycle
     std::cout << i << std::endl;
   }
 
@@ -34,7 +34,7 @@ int main() {
 
   for (i = 0; i < 5; ++i) {
     if (i == 2)
-      continue;
+      continue; //thus skips the printing
     std::cout << i << std::endl;
   }
 

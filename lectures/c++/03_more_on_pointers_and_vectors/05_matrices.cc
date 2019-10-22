@@ -7,6 +7,7 @@ void print_ma(int m[][5], int dim1);  // ugly and not flexible
 // knwon at compile time
 
 void print_ma(int* p, int row, int col);  // the only possible solution
+    //a pointer and dimesnion of row and columns
 
 int main() {
   int ma[6][5];  // matrix: 6 rows, 5 columns each
@@ -14,7 +15,7 @@ int main() {
   for (int i = 0; i < 6; ++i)
     for (int j = 0; j < 5; ++j)
       ma[i][j] = 10 * i + j;
-
+//how is the matrix in the memory?? we print the adresses
   for (int i = 0; i < 6; ++i) {
     for (int j = 0; j < 5; ++j)
       std::cout << std::setw(3) << ma[i][j];
@@ -24,13 +25,15 @@ int main() {
   for (int i = 0; i < 6; ++i) {
     for (int j = 0; j < 5; ++j)
       std::cout << &ma[i][j] << " ";
-    std::cout << std::endl;
+    std::cout << std::endl;  //we print the adrresses,they are contoìiguius, matrix is tored as a lng array of elements
   }
 
-  // int *pma {ma}; 		// error
-  // int *pma[5] {ma};		// error
+//how to pass the matrix as a reference to a function
+  // int *pma = ma; 		// error
+  // int *pma[5] = ma;		// error
   int* p{reinterpret_cast<int*>(ma)};
   // int* p {&ma[0][0]};
+
 
   // print_ma(ma, 6, 5); 	// error
   print_ma(p, 6, 5);
@@ -48,7 +51,7 @@ int main() {
 void print_ma(int* p, int row, int col) {
   for (int i = 0; i < row; ++i) {
     for (int j = 0; j < col; ++j)
-      std::cout << std::setw(2) << p[i * col + j] << " ";
-    std::cout << std::endl;
+      std::cout << std::setw(2) << p[i * col + j] << " ";//all rows are subsewuent so we must access in a sequential way the elements of the row.. c++ is row-wise
+    std::cout << std::endl;//thats wy the compiler needs t know the number of columsn
   }
 }

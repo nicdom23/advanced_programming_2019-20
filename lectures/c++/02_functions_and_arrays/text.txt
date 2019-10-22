@@ -1,0 +1,59 @@
+Lecture n 3 8/10/2019
+
+Small review of the last two lessons
+Open function.cc
+
+ret_type function_name(int a, double b,..){
+		function body
+
+return ;
+}
+
+void function()
+{
+   no return needed
+}
+
+programming its understanding
+a function should be as long as 5 statements
+draw on A piece of paper to understand the structure of the function
+
+C++ standards  11   and then 14 stands for 2011 and 2014
+
+c++14 allows me to use an auto return type even on functions declarations
+
+open 02_overloading.cc
+
+in c++ we can do fucntions overloadinf i create funcions with the ame name but different return type or arguments, the compiler will select whaat function to call according to the function call. If it cant be decided it will run an error
+
+open templates.cc
+templates replace T with the type name
+
+template <typename T>
+ template on the type. survives til the end of the statement
+
+open 04_wrong_args.cc
+
+the function doesnt work because the functions are passed by values
+
+variables that stay in the stack are eleted once they go out of scope
+variable that stay in the heap stay here until you tell the system to removve tem
+
+in functions the memory is in the stack: it is a sequence of levels, each function has its stack level, the variables that arre defined on such level are scoped and can be read inside the level
+
+there is an explanation onthe blckboard defining how memory is allocated for variables, how those variabes are removed once the are out of scope
+new function, new stack frame
+
+open 05_swaps
+
+its the file 05_functions from lecture 01_intro
+
+we reproduce the printing o the pointers tha we have already seen
+
+if we have int& r{a}
+reerences work as doing int * x = &a then when reads r replaces it as r -->(*x). this sostituion is made by the compiler
+
+open 06_static_arrays.cc
+
+arrays= contiguous cells of memory that contain the same types
+arrays are on stack
