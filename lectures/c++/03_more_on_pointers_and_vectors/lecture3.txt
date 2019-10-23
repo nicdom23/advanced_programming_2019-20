@@ -1,0 +1,2 @@
+objct that live n heap have no  name so you have to access there with a pointer
+A array decays to a pointer 
