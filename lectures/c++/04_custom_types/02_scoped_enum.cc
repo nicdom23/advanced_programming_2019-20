@@ -1,11 +1,13 @@
 #include <iostream>
 
-enum class color { red, yellow, green };
+enum class color { red, yellow, green };//new in c++
 // enum class color{red=0, yellow=1, green=2}; // equivalent
 
 void dwim(const color c) {
   switch (c) {
-    case color::red:
+    case color::red: //different notation,in the last enum we
+//	were capable of mixing and having name crashing
+//here its clearer thath the variable is of that type
       std::cout << "option 1: red\n";
       break;
     case color::yellow:
@@ -23,8 +25,8 @@ void dwim(const color c) {
 int main() {
   color opt{color::red};
   // opt = 3;     // cannot assign int to enum
-  // int a = opt; // and they don't implicitly convert to integers
-  int a{static_cast<int>(opt)};  // cast
+  // int a = opt; // and they don't implicitly convert to integers doesnt work anymore
+  int a{static_cast<int>(opt)};  // cast is needed
   // int a {int(opt)}; //
   // int a {(int)opt}; // C-style cast
 
