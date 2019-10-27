@@ -1,0 +1,75 @@
+5
+c++ is a compiled language, needs a compiler, its our friend it tells programming errors
+
+use the makefile with make to compile the programs
+
+open emacs first.cc
+
+different compilers give us different performances
+
+compile with c++ or gcc or clang++
+
+modify the code and recompile it
+
+? is a variable that memorizes the last output from the last program
+access it using echo $? and check the output of the executable		
+   			made by c++ -S								
+compilation includes several steps :  SRC --> PreProcessor--> Assembly .s (last level that is human readable)--> object file .o  ---> linking with other files to get the executable
+		can be made with c++ -c  		then we do c++ file.o to get the executable
+
+Use semicolons
+
+we start by variable.cc  variables are entities of particular types  int double char bool
+//C++ is a static language every variable needs a type
+
+new way to define variables int a{-1}
+Private words cant be used as variables, variables can't start with numbers
+Different type occupy different sizes of memory
+4 concepts type value object variable
+
+##object is a set of bytes
+##the value of those bits defines the value of the object
+##each object has a type: a type tells us how to interpret the object and what to do with it
+## a variable is a named object
+
+c++ is strongly checked (Type integrity is verified during compilation)
+
+const -> we wont change the value
+constexpr -> knowing that an expression is constant gives us a better performance during the compilation, because it is calculated during the compilation
+
+Open hello_name.cc   >> are called stream
+Open loops.cc
+ for{::} endless loop
+if the body of a for loop is one instruction then {} can be omitted
+i is out of scope outside the for loop
+int i{} => i defined as a i=0 TRY THIS STATEMENT
+
+while loop
+do while executes the do statement at least once
+
+break(exit from the innermost loop and continue(go to the next iteration
+
+open watch_out.cc    we experience an overflow where the one bit is shifted to the left and represents the biggest negative number possible, this happened on arian 5
+
+never use == or != with floating points number  --> infinite loop
+
+setprecision sets how many digits are printed
+0.1 cannot  be expressed correctly so 0.1*10 is not equal to 1
+if we have to compare two floating point numbers
+include cmath
+
+then use 
+double d1,d2
+std::abs(d1-d2)<1e-15
+
+Open pointers.cc
+
+double d = 9.9
+double &ref = d; ref is an alias of d!!
+double *ptr = &d; ptr and &d is an adress pointing at d 
+		ptr is interpreted as an adress pointing at d
+		the value of pointers is the same adress of d
+*p access to d dereferenciation of the pointer
+
+open functions.cc
+c++ functions accept references
