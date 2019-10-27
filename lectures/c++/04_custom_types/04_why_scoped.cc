@@ -3,8 +3,8 @@
 enum month { jan = 1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec };
           //the rests are incrememted by 1
 using namespace std;//do not use into a header to avoid importantion
-using std::cout//single "use"
-using std::endl//element can be called alone
+using std::cout; //single "use"
+using std::endl; //element can be called alone
 
 int main() {
   cout << nov << endl;
