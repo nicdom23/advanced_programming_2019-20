@@ -1,0 +1,4 @@
+A class or a struct is a collection of data and function
+struct everything is publiv Class everything is private by default
+you can always acccess you whole data when you compile a class. Tday well see something special,well see what compiler do
+first file

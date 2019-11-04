@@ -33,7 +33,7 @@ Foo::Foo(const int i, const double d, const std::string& s)//signature of the co
 }
 
 Foo::Foo() {//no column name
-  std::cout << "default ctor\n";  // what happens to our member variables?
+  std::cout << "default ctor\n";  // what happens to our member variables? initialized at random
 }//used to make an array of these object
 
 Foo::~Foo() {//destructor

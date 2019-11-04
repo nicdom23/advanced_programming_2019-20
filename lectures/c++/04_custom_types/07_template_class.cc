@@ -12,8 +12,8 @@ class Vector {
   // automatically release the acquired memory :Resource Acquisition Is Initialization
   ~Vector() { delete[] elem; }
 
-  // try to remove the const and recompile
-  std::size_t size() const { return _size; }//the value is not changed if function is compiled
+  // try to remove the const and recompile 
+  std::size_t size() const { return _size; }//the value is not changed if function is called
 
   num& operator[](const std::size_t i) { return elem[i]; }
 
@@ -47,7 +47,7 @@ int main() {
 
   Vector<double>& rv{v};
 
-  rv[5] = 555; //works ok
+  rv[5] = 555; //works ok  //copies content inside main array
 
   std::cout << v << std::endl;
 

@@ -3,7 +3,9 @@
 
 template <typename T>
 class Vector {
-  std::unique_ptr<T[]> elem;
+  std::unique_ptr<T[]> elem;//implement get returns array pointers
+				//reset
+	//how to implement a constant ownership Copyright used,deleted the copy constructor and on the copy assugnement			//release:release the ownership	
   std::size_t _size;
 
  public:

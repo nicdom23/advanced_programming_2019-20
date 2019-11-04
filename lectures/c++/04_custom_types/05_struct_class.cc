@@ -3,7 +3,7 @@
 #include <vector>
 //structures in C
 //Classes in C++ : we can add  data and functions too
-struct Point_s {//not the same struct as in c //it is a new type
+struct Point_s {//not the same struct as  in c //it is a new type
 //default visibility of sybols change with class
   double x;
   double y;
