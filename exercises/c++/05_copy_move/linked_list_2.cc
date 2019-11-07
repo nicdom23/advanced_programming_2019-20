@@ -11,11 +11,33 @@ class List {
   // this method should be used to fill the list
   void insert(const value_type& v, const Insertion_method m){
 
-	Node node_to_add{v,head};
+	/*Node node_to_add{v,head};
 	head.reset(&node_to_add);
 	std::cout<<"inserted"<<v<<std::endl;
 	size++;
-	}
+*/ switch (m) {
+    case Insertion_method::push_front:
+        std::cout << "option 1: push_front\n";
+	// push front
+	head.reset(new Node{v,head.release()});
+		
+	++size;
+      break;
+    case Insertion_method::push_back:
+      std::cout << "option 2: push back\n";
+		
+	Node* p=head.get();
+			
+	   while(!p->next){ 
+				p=p->next.get();
+			}
+
+		p->next.reset(new Node{v,nullptr});
+		++size;
+		break;}
+				
+
+       }
 
   // return the size of the list
   std::size_t size_of() const{
@@ -23,10 +45,11 @@ class List {
 
   // delete all the nodes of the list
   void reset(){ head.reset();
-		size=0;}
+		size=0;
+	std::cout << "reset"<<std::endl;}
 
   // constructor(s) for List
-  	List():head{nullptr},size{0} { std::cout<<"created"<<std::endl;}
+  	List():head{nullptr},size{0} { std::cout<<"created list"<<std::endl;}
   // copy semantics
   // move semantics
   
@@ -40,9 +63,11 @@ class List {
     std::unique_ptr<Node> next;
 	
     // implement suitable constructor(s) for node
-	Node():value{},next{nullptr}{std::cout<<"created empty node"<<std::endl;};    
-	Node(value_type object,std::unique_ptr<Node> next_node):value{object},next{next_node}{std::cout<<"created full node"<<std::endl;}
-	Node(value_type object):value{object},next{nullptr}{std::cout<<"half full node"<<std::endl;}
+	//Node():value{},next{nullptr}{std::cout<<"created empty node"<<std::endl;};    
+	Node(value_type object,Node* next_node):value{object},next{next_node}{std::cout<<"created full node"<<std::endl;} 
+	
+
+//Node(value_type object):value{object},next{nullptr}{std::cout<<"half full node"<<std::endl;}
     // copy and move semantics if needed
     
     // destructor
@@ -72,8 +97,12 @@ return os;
 int main(){
 
 List<int> L1{};
-L1.insert(1,Insertion_method::push_back);
+L1.insert(1,Insertion_method::push_front);
 L1.insert(2,Insertion_method::push_back);
+L1.insert(2,Insertion_method::push_back);
+L1.insert(2,Insertion_method::push_back);
+L1.insert(2,Insertion_method::push_back);
+L1.reset();
 std::cout<<L1.size_of()<<std::endl;
 return 0;
 
