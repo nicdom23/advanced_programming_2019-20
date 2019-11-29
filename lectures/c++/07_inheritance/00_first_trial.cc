@@ -16,26 +16,26 @@ struct Animal {
 struct Dog {
   Animal _animal;
   void speak() const noexcept { std::cout << "Bau\n"; }
-  void info() const noexcept { _animal.info(); }
+  void info() const noexcept { _animal.info(); }//not like snake
   Dog() noexcept : _animal{} {}
-  Dog(const unsigned int a, const double d) noexcept : _animal{a, d} {}
+  Dog(const unsigned int a, const double d) noexcept : _animal{a, d} {}//delegating constructor
 };
 
 struct Snake {
   Animal _animal;
-  bool dangerous;
+  bool dangerous;//first we construct from top to bottom, first we build the parent, calla delegated cosntructor, then initialze own members
   Snake(const unsigned int a, const double w, const bool b) noexcept
       : _animal{a, w}, dangerous{b} {}
   Snake(const bool b) noexcept : _animal{}, dangerous{b} {}
   void info() const noexcept {
-    _animal.info();
+    _animal.info();//its wrong
     std::cout << "dangerous:\t" << (dangerous ? "true" : "false") << std::endl;
   }
   void speak() const noexcept { std::cout << "ssss\n"; }
 };
 
 template <typename AT>
-void print_animal(const AT& a) noexcept {
+void print_animal(const AT& a) noexcept {//all types must be known at copmile time
   std::cout << "through ref\n";
   a.info();
   a.speak();
@@ -61,9 +61,9 @@ int main() {
 
     std::cout << std::endl;
 
-    Snake* p = new Snake{1, 2.3, false};
+    Snake* p = new Snake{1, 2.3, false};//run time polymorphism a pointer of oarent can point to a child
     std::cout << "through pointer\n";
-    p->info();
+    p->info();//function doesn't work
     p->speak();
 
     delete p;

@@ -2,6 +2,10 @@
 #include <iostream>
 
 #include "ap_error.h"
+/*
+instead of writning an if clause i can use instead macros like AP_ERROR
+*/
+
 
 // implment a square root function that "deals with" negative
 // numbers. Moreover according to the logic of the program, d should
@@ -24,8 +28,8 @@ int main() {
   } catch (const Square_root_invalid& e) {
     std::cerr << e.message << std::endl;
     return 2;
-  } catch (const std::exception& e) {
-    std::cerr << e.what() << std::endl;
+  } catch (const std::exception& e) { //e is the exception
+    std::cerr << e.what() << std::endl; //E:what retudns the information in the exception
     return 1;
   } catch (...) {
     std::cerr << "Unknown exception. Aborting.\n";
@@ -34,11 +38,17 @@ int main() {
 }
 
 double square_root(const double d) {
-  // test the pre-conditions
+  // test the pre-conditions     
+/*
+we used macro to write an error type 
+this is a very fancy solution
+*/
 
   AP_ERROR(d >= 0 && d <= 50, Square_root_invalid)
       << "In our library the argument must be positive and less or equal than "
          "50.\n";
+
+//see different cases of error macro tou can use
 
   // AP_ERROR(d >= 0 && d <= 50) << "In our library the argument must be
   // positive "

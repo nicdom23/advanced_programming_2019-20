@@ -1,0 +1,51 @@
+what is programming why its difficult or beautiful pc dpont have commonsense spec.
+Sendtences for peolpe with common sense
+ERROR Are exceptional events Error handling is not an easy topic
+On modern professianola librarues 50%is herror handling. If yoy develo p a libraty yo may knoww ehy something is not good.he knows what escepton may occur from where and ehat do they do. You dont know what to do. 
+Error handling is event specific a certain event hapened. what to do if exception occurs somewhere in the world
+
+Return 0 measn no error
+return value might be an error handling. the user should check the return type. what if a function returnd ssomething by design.
+fucntion sqrt returns sqroot of a number, if something went wrong i cannot
+run 00
+
+The program doesnt crash, you get a NaN, which alwas returns Nan always..use function Isnan
+
+
+THrer is the macro
+
+inside catch clauses you write what happened, you only see that an error happened. the explanations are something to be written inside the ball, i see a message inside
+
+next>>
+
+next >>assert to remaove the clauses If the condition is true ecertything is fine 
+else the program crashes <<<>>>exception in C++
+
+The result is an abort becasue you dont get excetuin ig you compile code with esxetiof .DNDEBUG 
+and i run it and i insert -8 no wìexcetoui is throen+
+
+asserts are executed except you have -DNDEBUG  
+
+chechs can be turnd on and off, off the code is faster, the code is slower except, you turn off the checks and get a faster code with DNDEBug
+
+
+
+>>an exception is thrown we do stack unwinding calls the destructor for all objects that executed well
+
+After the catch close: no memory leaks>> ihave to release the memory everytime i cathc i restart the program,,you have to always clean the memory
+
+delete 
+
+
+MAIN(){
+try{}
+
+
+catch{}
+
+}
+>>how we shoud define macros about error handling
+
+macro elaborated by the preprocessorù
+define a macro name of the m,acro, optional arguments, what the preprocessors will substiture whrn you call the macro,, continuation line char \\\  
+}

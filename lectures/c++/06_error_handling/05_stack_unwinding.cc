@@ -33,15 +33,18 @@ class ManyResources {
   Vector v;
 
  public:
-  ManyResources() : ptr{nullptr}, v{3} {
+  ManyResources() : ptr{nullptr}, v{3} {//if vector runs an exception inside the constructor body i delete my pointer, then i tìrethrow the ball
     std::cout << "Manyresources" << std::endl;
     try {
       ptr = new double[5];  // new(std::nothrow) double[5] could be better
-      AP_ERROR(false) << "Error in ManyResources ctor." << std::endl;
+      AP_ERROR(false) << "Error in ManyResources ctor." << std::endl;//new launches an exception //force error in constructoe of manyresources: what if ram is finished, new will throw an exception.if the memory cant be allocated returnd nul l piunter in C: here we retunr a nexcetption  
+//RUN
     } catch (...) {
       delete[] ptr;  // <----
-      throw;
-    }
+      throw;//rethrow the catch
+/*DOnt use raw pointers it is a mess we have to take care of all the paths, solutions is to use smart pointer >>unique pointer ownership
+               >> shared pointer, i acceot that ther might be multipel to shares the memory adress, the last one to have
+  */  }
   }
 
   ~ManyResources() noexcept {
@@ -52,12 +55,14 @@ class ManyResources {
 
 int main() {
   Foo f;
-  int* raw_ptr = new int[7];
+  int* raw_ptr = new int[7];//delete raw pter must be repeatded not to have memory leaks
   try {
     // int * raw_ptr=new int[7]; // wrong because raw_ptr would not be visible
     // inside the catch-clause
-    ManyResources mr;
+    ManyResources mr;//here fails
     Bar b;
+
+
 
   } catch (const std::exception& e) {
     std::cerr << e.what() << std::endl;

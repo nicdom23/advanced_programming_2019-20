@@ -15,7 +15,16 @@ class Vector {
   }  // you can use smart pointers almost like raw pointers
   ~Vector() noexcept { std::cout << "~Vector\n"; }
 };
+/*slower than raw pointers
+shared pointers, people can share, someone is responsible for the address
+No need for adding the delete[]
+use smart pointers ::: ome is responsible with deletring the resources
 
+No two uniwue pointers that share in the same pointer
+
+there are software penalsties for this
+if a cuntion doesnt throw an exception point it as noexcept, no excpeiton handling, call will be faster,, else if exception you abort::::faster code >>no except C++11
+*/
 class ManyResources {
   std::unique_ptr<double[]> ptr;
   Vector v;
@@ -24,7 +33,7 @@ class ManyResources {
   ManyResources() : ptr{new double[5]}, v{3} {
     std::cout << "ManyResources ctor\n";
     AP_ERROR(false) << "I am simulating something wrong.\n";
-  }
+  }//no except new in c++
   ~ManyResources() noexcept { std::cout << "~ManyResources\n"; }
 };
 

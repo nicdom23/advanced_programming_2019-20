@@ -30,8 +30,22 @@ double square_root(const double d) {
   // test the pre-conditions
   assert(d >= 0 && d <= 50);  // provided by C, no execeptions
 
-  // AP_ASSERT(d>=0 && d<=50) <<  "d should be in the range [0,50]";
+  // AP_ASSERT(d>=0 && d<=50) <<  "d should be in the range [0,50]"; //Same fucntion as assert
+//can be removed by 
+/*
+if you think that checks slow down your code you can use assert to sìdisable them,depending on asselmble flags
 
+if it depensa on internal logic use error
+error alwaays check and if clasues slow down the code
+no unnecessary checks leave tests as asserts
+
+bugs :found out by the compilers
+bugs:internal logic bug :found out by asserts
+bugs : wrong resut is gotten
+
+
+
+*/
   // AP_ASSERT_IN_RANGE(d,0,50);
   return sqrt(d);
 }

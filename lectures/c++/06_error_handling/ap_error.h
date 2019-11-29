@@ -111,13 +111,13 @@ namespace internal {
     }
 
     inline MessageHandler& operator<<(
-        std::ostream& (*basic_manipulator)(std::ostream&)) {
+        std::ostream& (*basic_manipulator)(std::ostream&)) {//this sintax is afucntion pointer that returns oststream reference and returns ostream reference,maybe
       _os << basic_manipulator;
       return *this;
     }
 
     inline MessageHandler& operator<<(const bool b) {
-      return *this << (b ? "true" : "false");
+      return *this << (b ? "true" : "false");//dont throw exceptions to a constructor
     }
 
     std::string get_string() const { return _os.str(); }
@@ -162,23 +162,23 @@ namespace internal {
 
 // when the condition is not satisfied, an exception is thrown
 
-#define AP_ERROR(...)                                                          \
+#define AP_ERROR(...)      /* //Va_args      */                                             \
   SELECT_MACRO(__VA_ARGS__, _AP_ERROR2, _AP_ERROR1, dummy)(__VA_ARGS__)
 
 #define _AP_ERROR2(cond, exception_type)                                       \
   if (!(cond))                                                                 \
-  ::internal::AssertHelper<exception_type>{} =                                 \
+  ::internal::AssertHelper<exception_type>{} =/*what is this?we ll se e if we have time  we have time 15:46 we construct message handler and then the << operator*//*i need to do two things in ine line once ic onstrucetd the mesage i have to bults an exception tyoe with the message inside and throw the ball              */                                 \
       internal::MessageHandler{}                                               \
       << "\n\n"                                                                \
       << "------------------------------------------------------------------"  \
       << "\n"                                                                  \
-      << "A runtime exception has been thrown\n\n"                             \
+      << "A runtime exception has been thrown\n\n"                            \
       << "       file: " << __FILE__ << '\n'                                   \
       << "       line: " << __LINE__ << '\n'                                   \
       << "   function: " << __PRETTY_FUNCTION__ << '\n'                        \
       << "------------------------------------------------------------------"  \
       << "\n\n"
-
+/* macros inisde macros are expanded __FILE__is a macro contains the file name*/
 #define _AP_ERROR1(cond) _AP_ERROR2(cond, std::runtime_error)
 
 #define AP_ASSERT(...)                                                         \
@@ -209,12 +209,12 @@ namespace internal {
 #define AP_ASSERT_NE(a, b)                                                     \
   _AP_ASSERT((a != b)) << a << " was expected to be not equal to " << b        \
                        << std::endl
-
+//no macro overloading 15:58
 #define AP_ASSERT_LT(a, b)                                                     \
   _AP_ASSERT((a < b)) << a << " was expected to be less than " << b << std::endl
 
 #define AP_ASSERT_LE(a, b)                                                     \
-  _AP_ASSERT((a <= b)) << a << " was expected to be less or equal than " << b  \
+  _AP_ASSERT((a <= b)) << a << " was expected tobe less or equal than " << b  \
                        << std::endl
 
 #define AP_ASSERT_GT(a, b)                                                     \

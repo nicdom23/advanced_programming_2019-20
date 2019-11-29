@@ -11,7 +11,10 @@ struct Animal {
 
   Animal() : Animal{0, 0} {}  // delegating constructor
 
-  virtual void speak() const = 0;  // pure virtual function ==> abstract class
+  virtual void speak() const = 0;  // pure virtual function ==> abstract class struct animal is an abstract class:::you cannot instantiate an object of the abstract class::::only encounter a type of animal:::at least one pure virtual function
+
+//you try to create an object fir the new type of animal; you have to revrite the function virtual
+//virtual keyword   at runtime the program will do a dinamic bynding at the function at runclass
   virtual void info() const noexcept {
     std::cout << "age:\t" << age << '\n' << "weight:\t" << weight << '\n';
   }

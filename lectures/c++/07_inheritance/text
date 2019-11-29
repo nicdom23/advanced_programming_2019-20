@@ -1,0 +1,65 @@
+WE have to implement a lot of vlasses which sare some data:how to avoius code duplication??
+open 00_first_trial.c
+make a struct animal that inherits all the info
+If i have to descrube with words the oop i would use
+IS A
+HAS A   -> Object composition define a class and put a member of that type
+USE A
+what is a snake? Is a
+
+open 01 Inheritance.cc
+Struct dog:public animal{} DOG IS AN ANIMAL
+IS A -> public inheritance
+inheriths functions and variables
+
+public protected private
+protected
+public: visible from outside:dog accesses public member of animal
+animal is a base class: parent class or superclass
+dog is a child class,or derived class can be represented with a graph
+
+protected means that from ooutside is just private, but children can access protected data
+USE A private and protected
+protected--public becomes protected  become implementation details
+std vector inherits from a class that handles allocation and deallocation
+
+intern inherits a person:will always remain an intern::::you cannot implement an activity::: implement class activity
+
+
+open 02_virtual.cc  each children implements its own functions: use virtual private word 
+
+
+If this object has size zero you could fit many a t once
+
+size of a struct is one byte, even an empty inherited class
+virtual:children can reimplement the function
+now with size 8 added virtual function table:::added a pointer to a table that will consider when everytime a new children is inserted has one row per type of the children::contains pointer to the derived functions like foo::bar()  derived::bar() ::: will acces one row of the table and will access the function..
+dicciculty, greater object, and jumping in memory,function cannot be inlined, jump anyway:::::lot of jumps::for HPC no virtual functions, too many jumps::no virtual functions    dinamic binding calls virtual functions
+
+
+polimorphism pass a child at the class that asks for a parent
+
+
+override with virtual
+overload same function name, different arguments
+
+how to overwrite virtual functions?  positiional keyword override
+
+virtual fucntions means that class must be inherithed
+
+THERE IS a BUG(NOW it has a virtual destructor)
+
+open 03_virtual_destructor.cc
+huge leak, no destructor::::: virtual destructor solves the problem
+
+RUNTIME PENALTIES WITH The USE OF VIRTUAL
+
+open 04_private.cc
+
+class animal
+
+
+using can be templated
+
+
+runtime polimorphism versus templates
