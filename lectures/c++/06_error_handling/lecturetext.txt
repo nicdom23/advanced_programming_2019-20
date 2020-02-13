@@ -1,11 +1,11 @@
 what is programming why its difficult or beautiful pc dpont have commonsense spec.
 Sendtences for peolpe with common sense
 ERROR Are exceptional events Error handling is not an easy topic
-On modern professianola librarues 50%is herror handling. If yoy develo p a libraty yo may knoww ehy something is not good.he knows what escepton may occur from where and ehat do they do. You dont know what to do. 
-Error handling is event specific a certain event hapened. what to do if exception occurs somewhere in the world
+On modern professianola librarues 50%is herror handling. If yoy develo p a libraty yo may knoww ehy something is not good.he knows what exception may occur from where and what do they do. You dont know what to do. 
+Error handling is event specific a certain event happened. what to do if exception occurs somewhere in the world
 
-Return 0 measn no error
-return value might be an error handling. the user should check the return type. what if a function returnd ssomething by design.
+Return 0 means no error
+return value might be an error handling. the user should check the return type. what if a function returns something by design.
 fucntion sqrt returns sqroot of a number, if something went wrong i cannot
 run 00
 
@@ -21,7 +21,7 @@ next>>
 next >>assert to remaove the clauses If the condition is true ecertything is fine 
 else the program crashes <<<>>>exception in C++
 
-The result is an abort becasue you dont get excetuin ig you compile code with esxetiof .DNDEBUG 
+The result is an abort because you dont get executing you compile code with exception .DNDEBUG 
 and i run it and i insert -8 no wìexcetoui is throen+
 
 asserts are executed except you have -DNDEBUG  

@@ -1,7 +1,11 @@
 #include <iostream>
-
+//remember that these works only with integers
 enum class color { red, yellow, green };//new in c++
 // enum class color{red=0, yellow=1, green=2}; // equivalent
+
+//trying name clashing
+enum class apple {yellow, gren, red};//now it works because the variables are scoped
+
 
 void dwim(const color c) {
   switch (c) {

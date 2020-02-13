@@ -4,6 +4,28 @@
 #include "ap_error.h"
 
 enum class method { push_back, push_front };
+template<class node_t>
+class iterator{
+node_t* current;
+public:
+using value_type =typename node_t::value_type;
+using reference=value_type&;
+using pointer=value_type*;
+using iterator_category  =std::forward_iterator_tag;
+using difference_type=std::ptrdiff_t;
+
+};
+
+/*
+template <typename PointerType> class MyIterator {
+    // iterator class definition goes here
+};
+
+typedef MyIterator<int*> iterator_type;
+typedef MyIterator<const int*> const_iterator_type;
+
+*/
+
 
 template <class T>
 class List {
@@ -54,15 +76,17 @@ class List {
 
   template <class O>
   friend std::ostream& operator<<(std::ostream&, const List<O>&);
+
+  iterator<node> begin(){return head;}
+  iterator<node> end(){return nullptr;}
+
 };
 
 template <class T>
 typename List<T>::node* List<T>::tail() noexcept {
   auto tmp = head.get();
-
   while (tmp->next)
     tmp = tmp->next.get();
-
   return tmp;
 }
 
@@ -126,16 +150,12 @@ int main() {
     l.insert(4, method::push_back);
     l.insert(5, method::push_back);
     l.insert(3, method::push_front);
-
-    std::cout << l << std::endl;
-
-    auto ol = l;
-    int a = 9;
+    
     l.insert(14, method::push_front);
-    l.insert(a, method::push_front);
+    l.insert(13, method::push_front);
+	std::cout <<l << std::endl;
 
-    std::cout << l << std::endl;
-    std::cout << ol << std::endl;
+     iterator<node> i= l.begin();
 
   } catch (std::exception& e) {
     std::cerr << e.what() << std::endl;

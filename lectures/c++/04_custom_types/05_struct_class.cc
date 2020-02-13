@@ -43,21 +43,25 @@ int main() {
 
   auto& pr = ps; //reference to a type, auto works too pr is a reference to ps
   ++pr.x; //incrementing by 1 the x member of pr
+ 
+  std::cout<<"print from a reference:";
   pr.print();//compiler error to find the type of the variable
 
   Point_s array_of_structs[8];  // built-in array
   array_of_structs[0].x = 1;
   array_of_structs[0].y = 2;
-
+                          
   std::array<Point_s, 5> as;
   as[3].x = 3;
 
-  std::vector<Point_s> vs;
+  std::vector<Point_s> vs; //this is empty
   vs.push_back(ps);//a function defined in class std::vector
 				  //push_back == copy
   vs[0].x = 999;
   ps.x = 11;
+  std::cout<<"ps modified from variable";
   ps.print();
+  std::cout<<"ps modified in array";
   vs[0].print();
 
   return 0;

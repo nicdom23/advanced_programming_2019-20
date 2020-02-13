@@ -3,12 +3,12 @@
 struct Foo {
   static double s;  // must be defined outside the class
   // static int si = 0; // error: must be const
-  static const int sc = 9;  // only integral types are allowed
-  // static const double sd;  // error
+  static const int sc = 9;  // only integral types are allowed 
+  // static const double sd;  // error, we do not know why
   int i;
-};
+};//all objects of type foo share the same static variables, the objects do not count the static 
 
-double Foo::s;
+double Foo::s;//like a global variable, must be defined outside the class
 
 // double Foo::s = 0;
 // double Foo::s = 9;

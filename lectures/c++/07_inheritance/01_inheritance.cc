@@ -64,7 +64,7 @@ int main() {
 
     std::cout << std::endl;
 
-    Snake s{true};
+    Snake s{55,55,true};
     s.info();
     s.speak();
 
@@ -84,6 +84,9 @@ int main() {
     std::cout << std::endl;
 
     print_animal_template(s);
+
+    std::cout << std::endl;
+    print_animal(d1);
 
     return 0;
   } catch (std::runtime_error& e) {

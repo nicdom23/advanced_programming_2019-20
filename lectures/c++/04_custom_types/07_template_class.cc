@@ -13,7 +13,7 @@ class Vector {
   ~Vector() { delete[] elem; }
 
   // try to remove the const and recompile 
-  std::size_t size() const { return _size; }//the value is not changed if function is called
+  std::size_t size()const{ return _size; }//the value is not changed if function is called
 
   num& operator[](const std::size_t i) { return elem[i]; }
 
@@ -22,7 +22,7 @@ class Vector {
 };                                          //|
                                             //|
 template <typename T>                      // v 
-std::ostream& operator<<(std::ostream& os, const Vector<T>& v) {//verifica di non
+std::ostream& operator<<(std::ostream& os,const Vector<T>& v) {//verifica di non
   for (auto i = 0u; i < v.size(); ++i)
     os << "v[" << i << "] = " << v[i] << std::endl;//
   return os;

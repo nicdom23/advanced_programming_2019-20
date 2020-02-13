@@ -17,18 +17,19 @@ int main() {
     std::cin >> number;
     auto d = square_root(number);
     std::cout << "square root of " << number << " is " << d << '\n';
+    std::cout<<"smthng got printed";
     return 0;
-  } catch (const Negative_number) {
+  } catch (const Negative_number ) {
     std::cerr << "The square root of a negative number is a complex number.\n"
                  "square_root() is "
               << "limited to handle positive double numbers.\n";
     return 1;
-  } catch (const Bigger_than_expected) {
+  } catch (const Bigger_than_expected ) {
     std::cerr << "The function square_root has been called with a parameter "
                  "greater than 50.\n"
               << "This means there is a bug in the algorithm that generated "
                  "this number.\n";
-    return 2;
+    return 2;//if this line is deleted "echo $?" returns zero after the abortion of the program
   } catch (...) {
     std::cerr << "Unknown exception. Aborting.\n";
     return 3;

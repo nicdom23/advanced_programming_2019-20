@@ -61,7 +61,7 @@ int main() {
 
     std::cout << std::endl;
 
-    Snake* p = new Snake{1, 2.3, false};//run time polymorphism a pointer of oarent can point to a child
+    Snake* p = new Snake{1, 2.3, false};//run time polymorphism a pointer of parent can point to a child
     std::cout << "through pointer\n";
     p->info();//function doesn't work
     p->speak();

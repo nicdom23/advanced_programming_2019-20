@@ -13,8 +13,8 @@ class Vector {
                         //the cutly braces are important, they initialize data/Else they are uninitaialzied
   ~Vector() { delete[] elem; }
 
-  const T& operator[](const std::size_t& i) const { return elem[i]; }
-  T& operator[](const std::size_t& i) { return elem[i]; }
+  const T& operator[](const std::size_t& i) const { std::cout<<"const subscription\n";return elem[i]; }
+  T& operator[](const std::size_t& i) { std::cout<<"normal subscription\n"; return elem[i]; }
 
   std::size_t size() const { return _size; }
 
@@ -35,10 +35,16 @@ int main() {
   v1[0] = 1;
   v1[1] = 2;
   v1[2] = 3;
+  const int test1 = v1[1];
+  int test2 = v1[1];
+  const Vector<int> vtest{3};
+	//vtest[0] = 1;  error
+	int test3 = vtest[1];//calls the const version of subscription
+        test3 = 4;
 
 print(v1);//we have a print of valuse
 
-print(1); //used to explain the explicit codeword //without the explicitt, it prints a 0
+//print(1); //used to explain the explicit codeword //without the explicitt, it prints a 0
 /*{
 
 auto it = v1.begin():
@@ -73,7 +79,7 @@ auto stop = v1.end();
   v2[1] = -999;//are the two objects?
 //two different objects in the vector case
 //WRONG BUGGY PROGRAM;WE GET AN ERROR, we got a compire defautl action, compiler doesnt know the meaning of a vector, it can only copy by value,,In a default compiler geneartaed copy constructor then copy each memeber by value(PROBLEM WITH POINTERS)for built-in types ELSE we invoke the copy sematic for a custom type, if there is none we get a copiler error
-//I try to delete a memotìry space twice  we have a shallow copy a cheap copy [][][][][][][]array in the heap elementt in the stack that points in the heap memory location,then i crate v2 as the default copy constructor,the compiler does a copy by value of the pointer, so the pointers point to the same memory space..V1 V"refer to the same big array in my memory, they are entalged RAII resour acquisition is initialization doesnt work well because memory is alraedy freed once 
+//I try to delete a memotìry space twice  we have a shallow copy a cheap copy [][][][][][][]array in the heap elementt in the stack that points in the heap memory location,then i crate v2 as the default copy constructor,the compiler does a copy by value of the pointer, so the pointers point to the same memory space..V1 V2 refer to the same big array in my memory, they are entalged RAII resour acquisition is initialization doesnt work well because memory is alraedy freed once 
 
   std::cout << "v1 after v2 has been changed: ";
   for (const auto x : v1)
@@ -81,4 +87,4 @@ auto stop = v1.end();
   std::cout << std::endl;
 
   return 0;
-}   //is the tryining to understand if thhe compiler geneatro copy constructor fits the definition of array vector
+}   //is the tryining to understand if thhe compiler geneatro copy constructor fits the definition of array vectore

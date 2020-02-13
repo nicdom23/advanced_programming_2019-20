@@ -7,13 +7,19 @@ void surprise(double a[], const std::size_t n) { //size_t stands for long long u
 }
 
 int main() {
-  int ai[4];
+	size_t size;
+	std::cout<<"insert partial size";
+
+	std::cin>>size;
+   
+
+  int ai[size];
   float af[9];//value is undefined
   ai[0] = 9;    // first element  []subscripting operator
   af[8] = 3.3;  // last element
   ai[88] = 7;   // undefined behavior, no range checking : dont know where we are reading
 
-  for (std::size_t k{0}; k < 4; ++k)  //size_t is a nonnegative number,so we avoid negative numbers ,It helps documenting
+  for (std::size_t k{0}; k < size; ++k)  //size_t is a nonnegative number,so we avoid negative numbers ,It helps documenting
     std::cout << "ai[" << k << "] = " << ai[k] << '\n';
 
   std::cout << "\n-------------------------------\n\n";

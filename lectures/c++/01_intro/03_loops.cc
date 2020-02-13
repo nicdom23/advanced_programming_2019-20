@@ -5,7 +5,7 @@ int main() {
     std::cout << i << " "; // if the action is just one line, {} can be omitted
   }
 
-  // std::cout << i << '\n';	// error, i is out of scope
+  //std::cout << i << '\n';	// error, i is out of scope
 
   std::cout << std::endl;
 

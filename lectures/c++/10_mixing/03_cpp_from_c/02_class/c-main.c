@@ -1,8 +1,8 @@
 #include "class_c_interface.h"
 #include <stdio.h>
 
-int main() {
-  Foo_c f = create_foo(11);
+int main() {//i have new functions
+  Foo_c f = create_foo(11);//creates a pointer crated in another function that points to a heap memory location(that's why i have to free
   print_foo(f);
   set_a(f, 7);
   print_foo(f);

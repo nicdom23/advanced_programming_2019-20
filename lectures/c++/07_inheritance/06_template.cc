@@ -8,7 +8,7 @@ struct Base {
 template <typename T>
 struct Derived : public Base<T> {//base class is templated
 
-  void bar() const { this->foo(); }
+  void bar() const { /*this->*/foo(); }//this is a pointer to the object on which the function is called------ use ->
 };
 //there might be an error if you remove this-> a pointer to myself
 int main() {

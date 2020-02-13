@@ -5,7 +5,7 @@
 
 template <class T>
 auto init(const std::size_t l) {
-  return new T[l]{};//{}means zero inizialization
+  return new T[l]{};//{}means zero inizialization of the array
 }
 
 #else //no more auto in an outdated version of c++

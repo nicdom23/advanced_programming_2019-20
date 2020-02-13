@@ -1,5 +1,5 @@
 #include <iostream>
-extern "C"{
+extern "C"{   //if you use nm name of the program in .o you will get c++ symbols
   void hello(){
     std::cout << "Hello, World" << std::endl;
   }
@@ -7,4 +7,5 @@ extern "C"{
 
 int main(){
   hello();
+  printf("Hello World");
 }

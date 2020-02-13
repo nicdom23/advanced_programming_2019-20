@@ -1,6 +1,9 @@
 #include <iostream>
 //color is a new type
 enum color { red, yellow, green }; //Used to avoid magic numbers, you have constants with the same value.You have to check if color is equal to certain constants 1,2,3etc 
+//trying name clashing
+///enum apples{ yellow, green, red};//error conflicts with previous declaration
+
 // enum color{red=0, yellow=1, green=2}; // equivalent
 //do not add magic numbers_use const expression instead
 void dwim(const color c) {

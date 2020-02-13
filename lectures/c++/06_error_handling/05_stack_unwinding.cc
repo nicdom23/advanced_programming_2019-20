@@ -33,22 +33,22 @@ class ManyResources {
   Vector v;
 
  public:
-  ManyResources() : ptr{nullptr}, v{3} {//if vector runs an exception inside the constructor body i delete my pointer, then i tìrethrow the ball
+  ManyResources() : ptr{nullptr}, v{3} {//if vector runs an exception inside the constructor body i delete my pointer, then i throw the ball
     std::cout << "Manyresources" << std::endl;
     try {
       ptr = new double[5];  // new(std::nothrow) double[5] could be better
-      AP_ERROR(false) << "Error in ManyResources ctor." << std::endl;//new launches an exception //force error in constructoe of manyresources: what if ram is finished, new will throw an exception.if the memory cant be allocated returnd nul l piunter in C: here we retunr a nexcetption  
+      AP_ERROR(false) << "Error in ManyResources ctor." << std::endl;//new launches an exception //force error in constructoe of manyresources: what if ram is finished, new will throw an exception.if the memory cant be allocated returnd nul l pointer in C: here we retunr a exception  
 //RUN
     } catch (...) {
       delete[] ptr;  // <----
       throw;//rethrow the catch
 /*DOnt use raw pointers it is a mess we have to take care of all the paths, solutions is to use smart pointer >>unique pointer ownership
-               >> shared pointer, i acceot that ther might be multipel to shares the memory adress, the last one to have
+               >> shared pointer, i accept that there might be multiple pointers to shares the memory adress, the last one to have
   */  }
   }
 
   ~ManyResources() noexcept {
-    std::cout << "Manyresources" << std::endl;
+    std::cout << "~Manyresources" << std::endl;
     delete[] ptr;  // <----
   }
 };

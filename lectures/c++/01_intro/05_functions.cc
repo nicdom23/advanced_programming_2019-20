@@ -5,7 +5,7 @@ void swap_c(int *a, int *b);
 void swap_cxx(int &a, int &b);
 
 int main() {
-  int a = {3.2}
+  int a = {3};
   int b = {7};
   buggy_swap(a, b);
   std::cout << "buggy:\texpected 7 3 --> " << a << " " << b << "\n";

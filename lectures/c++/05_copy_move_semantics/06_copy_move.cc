@@ -39,7 +39,7 @@ class Vector {
   // copy semantics
 
   // copy ctor -- deep copy
-  Vector(const Vector& v); //const beacìsue you eould modify the other
+  Vector(const Vector& v); //const because you could modify the other
 
   // copy assignment -- deep copy
   Vector& operator=(const Vector& v);
@@ -62,7 +62,7 @@ class Vector {
     std::cout << "move assignment\n";
     _size = std::move(v._size);
     elem = std::move(v.elem);
-    return *this;//pointer to the instantiated object, to yourself
+    return *this;//pointer to the instantiated object, to yourself(this refers to the object fo which a member function is invoked)
   }//elementwise move, it is not a constructor, a move generatied by the constructor would be fine too
 
   // Vector& operator=(Vector&& v) = default; // ok

@@ -18,8 +18,8 @@ struct Foo {
 //new opeator in c++ will call the constructor delete()will call the destructor
 
 Foo::Foo(const int i, const double d, const std::string& s)//signature of the constructor
-    : _i{i},_d{d},_s{s}//use curly braces //inside this limbo,where variables are constructed
-//i can just consruct things not cal std::cout,but can i call functions
+    : _i{2*i},_d{d},_s{s}//use curly braces //inside this limbo,where variables are constructed
+//i can just consruct things not call std::cout,but can i call functions
 	// _i, _d, _s must be initialized in the same order they have been declared
 //actual region
 { //_i{i}//wrong

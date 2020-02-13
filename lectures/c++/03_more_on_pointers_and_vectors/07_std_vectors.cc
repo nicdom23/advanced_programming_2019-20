@@ -10,7 +10,7 @@ void print_vector(const std::vector<T>& v, const std::string& s);
 
 int main() {
   std::vector<int> v0{1, 2, 4};
-  std::vector<int> v1(4, 4);
+  std::vector<int> v1(4, 5);
 
   print_vector(v0, "v0");
   print_vector(v1, "v1");

@@ -5,10 +5,10 @@ void print_sentinel(const T* a, const std::size_t l);
 
 int main() {
   int a{8}, b{7};
-  int* pi{&a};//pointers are variabbles that point to other variables 
-//you can make constatn the value of the pointer or also the value that the ointer refers to it
+  int* pi{&a};//pointers are variables that point to other variables 
+//you can make constant the value of the pointer or also the value that the pointer refers to it
 
-  const int* pc{&a}; //defines a pointer that cannot be changd when dereferenced
+  const int* pc{&a}; //defines a pointer that cannot be changed when dereferenced
 	//points to const int
   // *pc = 7; 	// error
   a = 15;  // I can obviously change a
@@ -22,7 +22,7 @@ int main() {
   const int* const cpc{&a};  //both cases are here present cant change the value of the referenced ariable or the value of the pointere
 
   // *cpc = 0;  // error
-  // cpc = &n;  // error
+  // cpc = &b;  // error
   a = 99;
 
   int aa[4]{1,2,2,1};

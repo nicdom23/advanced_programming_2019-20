@@ -23,7 +23,7 @@ struct Animal {
 };
 
 struct Dog : public Animal {
-  void speak() const noexcept override { std::cout << "Bau\n"; }
+  void speak() const noexcept override { std::cout << "Bau\n"; }//override used to check if speak is actually virtual, new in c++11
   Dog() = default;
   Dog(const unsigned int a, const double d) : Animal{a, d} {}
 };

@@ -18,12 +18,12 @@ class Vector {
 /*slower than raw pointers
 shared pointers, people can share, someone is responsible for the address
 No need for adding the delete[]
-use smart pointers ::: ome is responsible with deletring the resources
+use smart pointers ::: one is responsible with deleting the resources
 
-No two uniwue pointers that share in the same pointer
+No two unique pointers that share in the same pointer
 
-there are software penalsties for this
-if a cuntion doesnt throw an exception point it as noexcept, no excpeiton handling, call will be faster,, else if exception you abort::::faster code >>no except C++11
+there are software penalties for this
+if a function doesn't throw an exception point it as noexcept, no excption handling, call will be faster, else if exception you abort::::faster code >>no except C++11
 */
 class ManyResources {
   std::unique_ptr<double[]> ptr;

@@ -3,7 +3,7 @@
 
 #include "ap_error.h"
 /*
-instead of writning an if clause i can use instead macros like AP_ERROR
+instead of writing an if clause i can use instead macros like AP_ERROR
 */
 
 
@@ -26,10 +26,10 @@ int main() {
     std::cout << "square root of " << number << " is " << d << '\n';
     return 0;
   } catch (const Square_root_invalid& e) {
-    std::cerr << e.message << std::endl;
+    std::cerr << e.message << "SQUARE ROOT INVALID EXCEPTION"<<std::endl;//this exception is throw
     return 2;
-  } catch (const std::exception& e) { //e is the exception
-    std::cerr << e.what() << std::endl; //E:what retudns the information in the exception
+}   catch (const std::exception& e) { //e is the exception
+    std::cerr << e.what() << "STD::EXCEPTION"<< std::endl; //E:what retudns the information in the exception
     return 1;
   } catch (...) {
     std::cerr << "Unknown exception. Aborting.\n";
@@ -44,7 +44,7 @@ we used macro to write an error type
 this is a very fancy solution
 */
 
-  AP_ERROR(d >= 0 && d <= 50, Square_root_invalid)
+  AP_ERROR(d >= 0 && d <= 50 ,Square_root_invalid)
       << "In our library the argument must be positive and less or equal than "
          "50.\n";
 

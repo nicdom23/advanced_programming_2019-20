@@ -10,8 +10,10 @@ int main() {
                             // this is not possible with plain built-in arrays
 				//you copy a into b
   b = a;//still valid syntax to copy
-  for (auto x : a)//new in c++11 print each element in a
+  for (auto x : a){//new in c++11 print each element in a
     std::cout << x << " ";
+    x=2;//can be reassigned; 
+   std::cout << x << " ";}
   std::cout << std::endl;
 
   for (auto x : b)
@@ -20,8 +22,11 @@ int main() {
 
   a[0] = 0;  // same subscripting operator without bound checking
 
-  for (const auto x : a)//x is scoped just inside the for loop
+  for (const auto x : a){//x is scoped just inside the for loop
     std::cout << x << " ";
+    //x=2; //error, cannot be reassigned
+   //std::cout << x << " ";
+	}
   std::cout << std::endl;
 
   for (const auto x : b)
@@ -34,7 +39,7 @@ int main() {
   for (auto i = 0u; i < a.size(); ++i)//array.size() is unsigned integer
     std::cout << "a[" << i << "] = " << a[i] << std::endl;
 
-  b.at(90);  // bound checking at run-time for element 90//returns the element if 90 is into the bounds //you cant have them in built in arrays,exceot if saintize=adress, that lowers the code.  function .at()
+  //b.at(90);  // bound checking at run-time for element 90//returns the element if 90 is into the bounds //you cant have them in built in arrays,exceot if saintize=adress, that lowers the code.  function .at()
 
 //Faster, better , more performant
 
