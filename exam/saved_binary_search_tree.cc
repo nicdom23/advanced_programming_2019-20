@@ -1,12 +1,12 @@
 // std::iterator example
 #include <iostream>     // std::cout
 #include <iterator>     // std::iterator, std::input_iterator_tag
-#include <vector>       // std::vector
+
 
 template<class T>
 class Node;
 
-template<class key,class value,typename cmp /*= std::less<key>*/>
+template<class key,class value>
 class bst;
 
 //*******************NORMAL ITERATOR
@@ -129,8 +129,7 @@ Node(T element)
 :value{element},left{nullptr},right{nullptr},parent{nullptr}{}
 
 
-~Node(){//std::cout<<"Removed Node"<<std::endl;
-}
+~Node(){std::cout<<"Removed Node"<<std::endl;}
 
 /***********function used only for printing the content of the node, not used anymore
 T getValue() const{
@@ -138,7 +137,7 @@ return value;
 }
 */
 
-template<class key,class value,typename cmp/* = std::less<key>*/>
+template<class key,class value>
 friend class bst;
 
 template<class S>
@@ -169,13 +168,12 @@ std::ostream& operator<<(std::ostream& os, const std::pair<T1,T2>& x)
 	return os;
 }
 
-////////////////////////
-/////////////BINARY SEARCH TREE CLASS
-////////////////////////
-template<class key,class value,typename cmp = std::less<key>>
+
+
+template<class key,class value>
 class bst{
 using treepair = std::pair<key,value>;
-cmp op;
+
 Node<treepair>* root;
 
 public:
@@ -346,7 +344,6 @@ std::cout<<"LVALUE INSERTION INVOKED adding pair"<<z.first<<" : "<<z.second<<std
 //if(root != nullptr) std::cout<<"root is"<<root->value.first<<"_"<<root->value.second<<std::endl;
 MyIterator<treepair> found = find(z.first);
 if(found !=end()){
- std::cout<<"Inserted Copy  "<<(*found).value.first<< "_" << (*found).value.second <<std::endl;
  std::pair<MyIterator<treepair>,bool> x{found,false};
  return x;
 }
@@ -367,7 +364,7 @@ if(root == nullptr)//empty tree
 	Node<treepair>*	x = root;//is one of the children of y
 	while(x != nullptr){//until we find an empty space
 		y = x;
-		if (op((*newnode_z).value.first,(*x).value.first))
+		if ((*newnode_z).value.first<(*x).value.first)
 			x = (*x).left;
 		else x= (*x).right;
 		}
@@ -378,7 +375,7 @@ if(root == nullptr)//empty tree
                 //std::cout<< "root changed in unusual way"<<std::endl;
 		root = newnode_z;
 		}
-	else if(op(   (*newnode_z).value.first,(*y).value.first  ))		
+	else if(((*newnode_z).value.first<(*y).value.first))		
 		(*y).left = newnode_z;//now we identify the correct position of the new node accordingly to the parent
 	else (*y).right = newnode_z;
 	MyIterator<treepair> x_ret{newnode_z,tree_maximum()};
@@ -412,7 +409,7 @@ if(root == nullptr)//empty tree
 	Node<treepair>*	x = root;//is one of the children of y
 	while(x != nullptr){//until we find an empty space
 		y = x;
-		if ( op((*newnode_z).value.first,(*x).value.first)  )
+		if ((*newnode_z).value.first<(*x).value.first)
 			x = (*x).left;
 		else x= (*x).right;
 		}
@@ -423,7 +420,7 @@ if(root == nullptr)//empty tree
                 //std::cout<< "root changed in unusual way"<<std::endl;
 		root = newnode_z;
 		}
-	else if(  op(  (*newnode_z).value.first,(*y).value.first  )   )		
+	else if(((*newnode_z).value.first<(*y).value.first))		
 		(*y).left = newnode_z;//now we identify the correct position of the new node accordingly to the parent
 	else (*y).right = newnode_z;
 	MyIterator<treepair> x_ret{newnode_z,tree_maximum()};
@@ -461,13 +458,13 @@ const_MyIterator<treepair> tree_search(Node<treepair>* x, const key& y) const
 		const_MyIterator<treepair> x = end();
 		return x;
 	}
-	else if ( !op(y,x->value.first)&&!op(x->value.first,y))
+	else if (y == x->value.first)
 	{
 		const_MyIterator<treepair> i{x,tree_maximum()};
 		std::cout<<"element found"<<std::endl;
 		return i;
 	}
-	if(op(y , x->value.first)) 
+	if(y < x->value.first) 
 		return tree_search(x->left,y);
 	else return tree_search(x->right,y);
 }
@@ -480,13 +477,13 @@ MyIterator<treepair> tree_search(Node<treepair>* x, const key& y)
 		MyIterator<treepair> x = end();
 		return x;
 	}
-	else if ( !op(y,x->value.first)&&!op(x->value.first,y))
+	else if (y == x->value.first)
 	{
 		MyIterator<treepair> i{x,tree_maximum()};
 		std::cout<<"element found"<<std::endl;
 		return i;
 	}
-	if(op(y , x->value.first) ) 
+	if(y < x->value.first) 
 		return tree_search(x->left,y);
 	else return tree_search(x->right,y);
 }
@@ -629,103 +626,6 @@ value newitem = value{};
 	return (*(v.first)).value.second;
 
 }
-//************************************************BALANCE
-void balance(){
-
-std::vector<Node<treepair>> container = std::vector<Node<treepair>>{};
-
-//std::cout << std::boolalpha;
-//std::cout<<"is vector empty? right after creation  "<<container.empty()<<std::endl;
-
-//MyIterator<treepair> beginning = begin();
-//MyIterator<treepair> ending = end();
-//container.push_back(*root);
-std::cout<<"printing from bst:"<<std::endl;
-//for (;beginning!=ending;++beginning)
-
-for(auto& beginning : *this)
-{
-std::cout<< beginning<<" ";
-container.push_back(beginning);
-}
-std::cout<<std::endl;
-
-
-//	container.push_back(*beginning);
-//std::cout<<"print from vector"<<std::endl;
-//for (auto& x : container)
-//	std::cout<< x << " ";
-//std::cout<<std::endl;
-
-//std::cout<<"is vector empty? right after filling it  "<<container.empty()<<std::endl;
-
-//size_t size = container.size();
-//std::cout<<"size of vector"<<size<<std::endl;
-clear();
-balance_recursion(container);
-
-
-/*    //NOW THIS IS NOT USEFUL 
-while(!container.empty()){
-//for (auto& x : container)
-//	std::cout<< x << " ";
- ///////////std::iterator<Node<treepair>> init = container.begin()
-container.erase(container.begin());
-//std::cout<<std::endl;
-std::cout<<"while cycle"<<std::endl;
-Node<treepair> temp =*(container.begin());
-insert(temp.value);
-//insert(container[size/2].value);
-//container.erase(container.begin()+size/2);
-for (auto& x : container)
-	std::cout<< x << " ";
-std::cout<<std::endl;
-//size = container.size();
-std::cout<<"print from tree"<<std::endl;
-for(auto& x : *this)
-	std::cout<< x << " ";
-std::cout<<std::endl;
- 
-}*/
-
-
-std::cout<<"print from vector"<<std::endl;
-for (auto& x : container)
-	std::cout<< x << " ";
-std::cout<<std::endl;
-
-}
-
-void balance_recursion(std::vector<Node<treepair>> to_split){
-std::cout<<"print from recursion"<<std::endl;
-for (auto& x : to_split)
-	std::cout<< x << " ";
-std::cout<<std::endl;
-
-
-if (to_split.size()<2){
-Node<treepair> temp1 =*(to_split.begin());
-insert(temp1.value);
-}else if(to_split.size()==2){
-Node<treepair> temp1 =*(to_split.begin());
-insert(temp1.value);
-Node<treepair> temp2 =*(to_split.begin()+1);
-insert(temp2.value);
-}else{
-	Node<treepair> temp2 = *(to_split.begin()+to_split.size()/2);
-	insert(temp2.value);
-	std::vector<Node<treepair>> one{};
-	std::vector<Node<treepair>> two{}; 
-	for(size_t i = 0; i<to_split.size()/2;i++)
-		one.push_back(to_split[i]);
-	
-	for(size_t i = (to_split.size()/2)+1; i<to_split.size();i++)
-		two.push_back(to_split[i]);
-        balance_recursion(one);
-	balance_recursion(two);
-	}
-}
-
 //************************************************* PRINT
 
 friend
@@ -774,8 +674,6 @@ int main () {
         using b_t_INT = bst<int,int>;
 	b_t_INT bintree = b_t_INT();
 	
-
-	
 	bintree.emplace(3,4);
 	bintree.emplace(2,2);
 	bintree.emplace(1,4);
@@ -784,10 +682,8 @@ int main () {
 	bintree.emplace(5,34);
 	bintree.emplace(4,6);
 	bintree.emplace(6,7);
-	
 	std::cout<<"FIRST PRINT:"<<std::endl;
 	std::cout<<bintree<<std::endl;
-	
 	bintree.erase(3);
 	MyIterator<treepair> beginning = bintree.begin();
 	std::cout<<bintree<<std::endl;	
@@ -899,10 +795,5 @@ int main () {
 	//const_bintree.insert({5,5});
 	const_bintree.find(100);
         std::cout<<const_bintree<<std::endl;
-
-	std::cout<<"###########################TEST ON BALANCE##########"<<std::endl;
-	std::cout<<bintree<<std::endl;
-	bintree.balance();
-	std::cout<<bintree<<std::endl;			
 	return 0;
 }
