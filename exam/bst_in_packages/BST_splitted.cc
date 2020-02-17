@@ -1,15 +1,22 @@
 // std::iterator example
+#ifndef header
+#define header
 #include <iostream>     // std::cout
 #include <iterator>     // std::iterator, std::input_iterator_tag
 #include <vector>       // std::vector
-
+#endif
 //*************************************NODE  //first class to include
 
+#ifndef NODE
+#define NODE
+#include "node.h"
+#endif
+/**
 template<class T>
 class Node{
-/**
-	A node for the class bst
-*/
+
+	
+
 	T value;
 	Node<T>* left;
 	Node<T>* right;
@@ -39,7 +46,7 @@ public:
 		return os;
 	}
 };
-
+*/
 template<class key,class value,typename cmp >
 class bst;
 
@@ -168,7 +175,8 @@ public:
 //************copy semantics
 	//copy constructor -- deep copy
 	bst(const bst& bintree)
-	:root{new Node<treepair>{bintree.root->value}} {
+	:root{bintree.root}/*:root{new Node<treepair>{bintree.root->value}}*/ {//INVOCATION TO CONSTRUCTOR !! INCRIMINATED FUNCTION
+		
 		copy_part(bintree.root);//calls a recursive function that fills the new bst	
 	} 
 
@@ -344,7 +352,7 @@ std::pair<MyIterator<treepair>,bool> insert(const treepair& z){
  		return x;//returns the wanted pair
 	}
 	//else creates a new node and inserts it
-	Node<treepair>* newnode_z = new Node<treepair>{z};
+	Node<treepair>* newnode_z = new Node<treepair>{z};//!!//THIS IS THE INCRIMINATED FUNCTION THE CUSTOM CONSTRUCTOR
 	
 	if(isEmpty())//empty tree
 	{	
@@ -395,6 +403,7 @@ std::pair<MyIterator<treepair>,bool> insert(treepair&& z){
 template< class... Types >
 std::pair<MyIterator<treepair>,bool> emplace(Types&&... args){
 treepair newelement{args...};
+
 std::pair<MyIterator<treepair>,bool> x = insert(newelement);
 return x;
 }
@@ -686,11 +695,11 @@ int main () {
 	bintree.emplace(6,7);
 	
 	std::cout<<"FIRST PRINT:"<<std::endl;
-	std::cout<<bintree<<std::endl;
+	//std::cout<<bintree<<std::endl;
 	
 	bintree.erase(3);
 	MyIterator<treepair> beginning = bintree.begin();
-	std::cout<<bintree<<std::endl;	
+	//std::cout<<bintree<<std::endl;	
 
 	
 	bintree.insert(pairA);
@@ -718,12 +727,12 @@ int main () {
 		counter++;
 		//std::cout<< bintree;
 		//std::cout<<"contati "<<counter<<" nodi."<<std::endl;
-		std::cout<<(*inizio)<< " ";		
+		//std::cout<<(*inizio)<< " ";		
 			
 	}
 	std::cout<<"contati "<<counter<<" nodi."<<std::endl;  
 	
-	std::cout << bintree<<std::endl;
+	//std::cout << bintree<<std::endl;
 
 	bintree.find(34);
 	bintree.find(2);
@@ -733,12 +742,12 @@ int main () {
 	bintree.erase(34);
 	std::cout<<"finished erase"<<std::endl;
 
-	std::cout<<bintree<<std::endl;
+	//std::cout<<bintree<<std::endl;
 	std::cout<<"rimozione nodo 1"<<std::endl;
 	bintree.erase(1);
 	std::cout<<"finished erase"<<std::endl;
 
-	std::cout<<bintree<<std::endl;
+	//std::cout<<bintree<<std::endl;
 
 	std::cout<<"rimozione nodo 17"<<std::endl;
 	bintree.erase(17);
@@ -747,7 +756,7 @@ int main () {
 	
 	bintree.tree_minimum();
 	MyIterator<treepair> iniziale = bintree.begin();
-	std::cout<<bintree<<std::endl;
+	//std::cout<<bintree<<std::endl;
 
 	
 	std::cout<<"printed tree"<<std::endl;
@@ -756,13 +765,13 @@ int main () {
 	
 	bintree_copy = bintree;
 	std::cout<<"copy made"<<std::endl;
-	std::cout<<bintree<<std::endl;
-	std::cout<<"BINTREE_COPY"<<bintree_copy<<std::endl;
+	//std::cout<<bintree<<std::endl;
+	//std::cout<<"BINTREE_COPY"<<bintree_copy<<std::endl;
 	bintree_copy.erase(5);
-	std::cout<<"BINTREE_COPY_AFTER_ERASE"<<bintree_copy<<std::endl;
+	//std::cout<<"BINTREE_COPY_AFTER_ERASE"<<bintree_copy<<std::endl;
 	//std::cout<<"TREE MINIMUM"<<std::endl;
 	//bintree_copy.tree_minimum();	
-	std::cout<<"PRINT BINTREE_COPY"<<bintree_copy<<std::endl;
+	//std::cout<<"PRINT BINTREE_COPY"<<bintree_copy<<std::endl;
 
 	
 	
@@ -771,19 +780,20 @@ int main () {
 	//std::cout<<bintree_copy<<std::endl;
 	b_t_INT bintree_copy_by_constructor{bintree};//made an empty tree
 	
-	std::cout<<bintree_copy_by_constructor<<std::endl;
+	//std::cout<<bintree_copy_by_constructor<<std::endl;
 	//b_t_INT bintree_move{std::move(bintree)};
 	//std::cout<<bintree_move<<std::endl;
+	/*	
 	for (auto& x : bintree_copy_by_constructor)
 		std::cout<<x<<" ";
 	std::cout<<std::endl;
-
+	*/
 
 	bintree_copy_by_constructor.emplace(8,45);
 	bintree_copy_by_constructor.erase(4);
 	
-	std::cout<<bintree<<std::endl;	
-	std::cout<<bintree_copy_by_constructor<<std::endl;
+	//std::cout<<bintree<<std::endl;	
+	//std::cout<<bintree_copy_by_constructor<<std::endl;
 	
 	int i = 99;
 	int j = 100;
@@ -794,20 +804,20 @@ int main () {
  	//TRIAL WITH CONST_ITERATOR
 	
 	const b_t_INT const_bintree = b_t_INT{bintree};
-	std::cout<<const_bintree<<std::endl;
+	//std::cout<<const_bintree<<std::endl;
 	//const_bintree.emplace(3,3);
 	//const_bintree.insert({5,5});
 	const_bintree.find(100);
-        std::cout<<const_bintree<<std::endl;
+        //std::cout<<const_bintree<<std::endl;
 
 	std::cout<<"###########################TEST ON BALANCE##########"<<std::endl;
-	std::cout<<bintree<<std::endl;
+	//std::cout<<bintree<<std::endl;
 	bintree.balance();
-	std::cout<<bintree<<std::endl;		
-	std::cout<<"counted "<< bintree.size()<<" nodes "<<std::endl;	
+	//std::cout<<bintree<<std::endl;		
+	//std::cout<<"counted "<< bintree.size()<<" nodes "<<std::endl;	
 	
-	std::cout<<const_bintree<<std::endl;
-	std::cout<<"counted "<< const_bintree.size()<<" nodes "<<std::endl;	
+	//std::cout<<const_bintree<<std::endl;
+	//std::cout<<"counted "<< const_bintree.size()<<" nodes "<<std::endl;	
 	//const_MyIterator<treepair> iterate = const_bintree[70]; //subscription doesn't work on constant bst-s	
 	return 0;
 }

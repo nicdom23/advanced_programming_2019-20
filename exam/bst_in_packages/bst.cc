@@ -1,10 +1,13 @@
 #ifndef headers
-
+#define headers
 #include <iostream>     // std::cout
 #include <iterator>     // std::iterator, std::input_iterator_tag
 #include <vector>       // std::vector
 
 #endif
+#include "bst.h"
+#include "iterators.h"
+#include "node.h"
 
 
 /////////////BINARY SEARCH TREE CLASS
@@ -486,6 +489,19 @@ void balance_recursion(std::vector<Node<treepair>> to_split){
 	balance_recursion(one);
 	balance_recursion(two);
 	}
+}
+//************************SIZE
+size_t size() const {
+/**
+	Returns the size of the bst
+*/
+
+	size_t counter{0};
+	for ( auto& i : *this ){
+		(void)i;
+		++counter;	
+	}
+	return counter;
 }
 
 //************************************************* PRINT

@@ -1,3 +1,5 @@
+#ifndef NODE_H
+#define NODE_H
 
 //*************************************NODE
 
@@ -14,7 +16,7 @@ public:
 	//custom constructor
 	Node(T element);
 	//default destructor
-	~Node();
+	//~Node();
 
 	//friend classes that can access node parameters
 	template<class key,class value,typename cmp>
@@ -27,6 +29,8 @@ public:
 	friend class const_MyIterator;
 
 	//friend function to print the content of the node
-	friend
-	std::ostream& operator<<(std::ostream& os, const Node<T>& x);
+	//friend
+	//std::ostream& operator<<(std::ostream& os, const Node<T>& x);
 };
+
+#endif

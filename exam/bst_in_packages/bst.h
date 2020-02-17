@@ -247,7 +247,11 @@ void balance_recursion(std::vector<Node<treepair>> to_split);
 	Accessory function to fill the binary search tree in a balanced fashion
 
 */
-	
+//************************SIZE
+size_t size() const;
+/**
+	Returns the size of the bst
+*/	
 
 //************************************************* PRINT
 

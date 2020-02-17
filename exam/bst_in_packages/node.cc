@@ -1,9 +1,13 @@
-#ifndef headers
-
+#ifndef header
+#define header
 #include <iostream>     // std::cout
 #include <iterator>     // std::iterator, std::input_iterator_tag
 #include <vector>       // std::vector
+#endif
 
+#ifdef NODE
+#define NODE
+#include "node.h"
 #endif
 
 
@@ -24,7 +28,7 @@ public:
 	:value{element},left{nullptr},right{nullptr},parent{nullptr}{}
 
 	//default destructor
-	~Node()=default;
+	//~Node()=default;
 
 	//friend classes that can access node parameters
 	template<class key,class value,typename cmp>
@@ -37,9 +41,9 @@ public:
 	friend class const_MyIterator;
 
 	//friend function to print the content of the node
-	friend
+	/*friend
 	std::ostream& operator<<(std::ostream& os, const Node<T>& x){
 		os<<x.value;
 		return os;
-	}
+	}*/
 };
