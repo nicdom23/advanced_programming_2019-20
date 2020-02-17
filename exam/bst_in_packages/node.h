@@ -14,7 +14,8 @@ class Node{
 	Node<T>* parent;
 public:
 	//custom constructor
-	Node(T element);
+	Node<T>(T element)
+	:value{element},left{nullptr},right{nullptr},parent{nullptr}{}
 	//default destructor
 	//~Node();
 
@@ -29,8 +30,11 @@ public:
 	friend class const_MyIterator;
 
 	//friend function to print the content of the node
-	//friend
-	//std::ostream& operator<<(std::ostream& os, const Node<T>& x);
+	friend
+	std::ostream& operator<<(std::ostream& os, const Node<T>& x){
+		os<<x.value;
+		return os;
+	}
 };
 
 #endif
