@@ -2,10 +2,7 @@
 
 CC = g++
 
-FINAL: node.o BST_splitted.o
-	$(CC) -o FINAL node.o BST_splitted.o
-BST.o: BST.cc
-	$(CC) -c BST.cc
-BST_splitted.o: BST_splitted.cc
-	$(CC) -c BST_splitted.cc
+EXECUTABLE: main.cc node.h iterators.h bst.h print_pair.h
+	$(CC) main.cc -o EXECUTABLE -Wall -Wextra
+
 

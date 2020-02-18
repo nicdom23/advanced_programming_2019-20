@@ -1,15 +1,14 @@
-//*************************************NODE  //first class to include
+
+//*****************NODE  
 #include "node.h"
 
 template<class key,class value,typename cmp >
 class bst;
-//******************************* ITERATORs
+//*****************ITERATORS
 #include "iterators.h"
+
 //custom function to print the content of a pair
-template<typename T1,typename T2>
-std::ostream& operator<<(std::ostream& os, const std::pair<T1,T2>& x)
-{
-	os<<x.first<<"_"<<x.second;
-	return os;
-}
+#include "print_pair.h"
+
+//******************BST
 #include "bst.h"

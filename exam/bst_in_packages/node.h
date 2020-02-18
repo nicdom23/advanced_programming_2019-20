@@ -8,14 +8,20 @@ class Node{
 /**
 	A node for the class bst
 */
-	T value;
+	
 	Node<T>* left;
 	Node<T>* right;
 	Node<T>* parent;
+	
 public:
+	T value;
+
+private:
 	//custom constructor
-	Node<T>(T element)
-	:value{element},left{nullptr},right{nullptr},parent{nullptr}{}
+	explicit Node<T>(T element)
+	:left{nullptr},right{nullptr},parent{nullptr},value{element}{}
+public:
+	
 	//default destructor
 	//~Node();
 
