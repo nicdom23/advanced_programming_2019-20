@@ -6,7 +6,7 @@
 
 int main () {
  try{   
-	using treepair = std::pair<int,std::string>;
+	using treepair = std::pair<const int,std::string>;
 	using b_t = bst<int,std::string>;
 	
 
@@ -19,8 +19,8 @@ int main () {
 	//emptyBST[5]; works but adds an element to the aray
 	std::cout<<"Is it empty? "<<emptyBST.isEmpty()<<std::endl;
 	std::cout<<"Print of empty bst: "<<emptyBST<<std::endl;
-	const_MyIterator<treepair> iterat_begin = emptyBST.cbegin();	
-	const_MyIterator<treepair> iterat_end = emptyBST.cend();
+	b_t::const_iterator iterat_begin = emptyBST.cbegin();	
+	b_t::const_iterator iterat_end = emptyBST.cend();
 	(void) iterat_begin; (void) iterat_end;	
 	b_t copied_emptyBST{emptyBST};//construcor 2
 	copied_emptyBST = emptyBST;	
@@ -139,10 +139,13 @@ int main () {
 		
 	std::cout<<"###############TEST ON ITERATORS###########"<<std::endl;	
 	std::cout<<"before modification"<<bintree<<std::endl;
-	MyIterator<treepair> iter = bintree.find(5);
+	b_t::iterator iter_1 = bintree.find(5);
+	b_t::iterator iter_2 = bintree.find(99);
 		
-	(*iter).value.second = "albuquerque"; //this is possible
-	(*iter).value.first = 996; //this ruins the tree
+	(*iter_1).value.second = "Nine-hundred-ninety-six"; //this is possible
+	//(*iter_1).value.first = 996; //this ruins the tree //FIXED IF KEY IS CONSTANT
+	(void) iter_2;	
+	//*iter_2 = *iter_1;  //this crashes the code, don't know how
 	std::cout<<"after modification"<<bintree<<std::endl;
 
 
@@ -152,17 +155,29 @@ int main () {
 
 	std::cout<<"###########################TEST ON BALANCE##########"<<std::endl;
 	//std::cout<<bintree<<std::endl;
-	bintree.balance();
+	//bintree.balance();
+	bintree.clear();
 	std::cout<<bintree<<std::endl;		
 	std::cout<<"counted "<< bintree.size()<<" nodes "<<std::endl;	
 	
 	
 	//const_MyIterator<treepair> iterate = const_bintree[70]; //subscription doesn't work on constant bst-s
 	
-	//??bintree.emplace(3,"three");
-	
 
+/*this was just a trivial test to throw the FullMemoryException	
+
+	int counter{0};	
+
+	while(true){
+	counter++;	
+	bintree.emplace(counter,"number");}
+*/
+
+	
 	return 0;
+}catch(const FullMemoryException& e){
+	std::cerr<<"Memory is full. Aborting.\n";
+	return 1;
 }catch (...) {
     std::cerr << "Unknown exception. Aborting.\n";
     return 1;

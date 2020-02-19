@@ -18,26 +18,29 @@ public:
 
 private:
 	//custom constructor
-	explicit Node<T>(T element)
+	explicit Node<T>(T element) noexcept
 	:left{nullptr},right{nullptr},parent{nullptr},value{element}{}
 public:
 	
 	//default destructor
-	//~Node();
+	~Node()=default;
 
 	//friend classes that can access node parameters
 	template<class key,class value,typename cmp>
 	friend class bst;
-
+/*
 	template<class S>
 	friend class MyIterator;
 
 	template<class S>
-	friend class const_MyIterator;
+	friend class const_MyIterator;*/
+	
+	template<class S>
+	friend class BaseIterator;
 
 	//friend function to print the content of the node
 	friend
-	std::ostream& operator<<(std::ostream& os, const Node<T>& x){
+	std::ostream& operator<<(std::ostream& os, const Node<T>& x) noexcept {
 		os<<x.value;
 		return os;
 	}

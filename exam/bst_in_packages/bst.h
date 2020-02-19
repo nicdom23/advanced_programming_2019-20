@@ -2,6 +2,8 @@
 #define BST
 
 
+struct FullMemoryException{};
+//struct ExpiredIterator{};//exception to throw if iterator expires
 /////////////BINARY SEARCH TREE CLASS
 
 template<class key,class value,typename cmp = std::less<key>>
@@ -9,15 +11,87 @@ class bst{
 /**
 	Class that implements a binary search tree, as described in the book "Introduction to algorithms" by Cormen,Leiserson,Rivest,Stein; chapter 12 pages 286 to 298
 */
-	using treepair = std::pair<key,value>;//pair used in tree
+	using treepair = std::pair<const key,value>;//pair used in tree
 	
+public:
+
+//define the iterator of the class
+class iterator : public MyIterator<treepair>{
+public:	
+	iterator(Node<treepair>* a, Node<treepair>* b): MyIterator<treepair>(a,b){}
+
+	
+};
+//define the constant iterator of the class
+struct const_iterator : public const_MyIterator<treepair>{
+public:	
+	const_iterator(Node<treepair>* a, Node<treepair>* b): const_MyIterator<treepair>(a,b){}
+	//trial of solving the iterator expiration problem	
+	/*const_iterator operator++(){
+		if(this->last != tree_maximum())
+			this->last = tree_maximum();
+		return const_MyIterator<treepair>::operator++();	
+	}*/
+
+};
 	cmp op;//this is the comparison operator
 
 	Node<treepair>* root;//pointer to the root node
 
+	//custom creator
+	bst()
+	:root{nullptr} {std::cout<<"binary tree created"<<std::endl;}
+
+	~bst(){
+	std::cout<<"destructor on bst"<<std::endl;
+	//clear();
+	}
+//************copy semantics
+	//copy constructor -- deep copy
+	bst(const bst& bintree) 
+	:root{} {
+		if(!bintree.isEmpty()){
+		root = new Node<treepair>{bintree.root->value};
+			if (root == nullptr) throw FullMemoryException{};
+		copy_part(bintree.root);//calls a recursive function that fills the new bst	
+		}	
+	}
+ 
+
+  	// copy assignment -- deep copy
+	bst& operator=(const bst& bintree) {
+		
+		if(&bintree == this)//check for self reference
+        	    return *this;
+		clear();//empties the lhs bst
+		if(bintree.isEmpty()) return *this;	
+		insert(bintree.root->value);//inserts the root of the bst to copy
+		copy_part(bintree.root);//calls a recursive function that fills the new bst	
+		return *this;
+	}
+	
+	
+
+
+	//**************************MOVE SEMANTICS(done as default)
+	//move constructor
+	bst(bst&& bintree) noexcept : root{std::move(bintree.root)}{}
+	// move assignment
+ 	bst& operator=(bst&& bintree) noexcept{
+    		root = std::move(bintree.root);
+   		return *this;
+  	}
+
+
+
+
+
+
+
+private:
 //We collect here a few private accessory functions
 
-	void copy_part(Node<treepair>* x) noexcept{
+	void copy_part(Node<treepair>* x) {
 	/**
 		Accessory function to perform the deep-copy
 	*/
@@ -103,7 +177,7 @@ Node<treepair>* tree_maximum() const noexcept{
 }
 
 
-MyIterator<treepair> tree_search(Node<treepair>* x, const key& y) noexcept{
+iterator tree_search(Node<treepair>* x, const key& y) noexcept{
 /**
 	Accessory function that performs the bt search exploiting the binary-search-tree property
 	Returns a regular iterator
@@ -115,7 +189,7 @@ MyIterator<treepair> tree_search(Node<treepair>* x, const key& y) noexcept{
 	}
 	else if ( !op(y,x->value.first)&&!op(x->value.first,y))//equality among the comparison operators, if true the element is found
 	{
-		MyIterator<treepair> i{x,tree_maximum()};
+		iterator i{x,tree_maximum()};
 		return i;
 	}
 	
@@ -126,7 +200,7 @@ MyIterator<treepair> tree_search(Node<treepair>* x, const key& y) noexcept{
 		return tree_search(x->right,y);
 }
 
-const_MyIterator<treepair> tree_search(Node<treepair>* x, const key& y) const noexcept{
+const_iterator tree_search(Node<treepair>* x, const key& y) const noexcept{
 /**
 	Accessory function that performs the bt search exploiting the binary-search-tree property
 	Returns a const_iterator
@@ -137,7 +211,7 @@ const_MyIterator<treepair> tree_search(Node<treepair>* x, const key& y) const no
 	}
 	else if ( !op(y,x->value.first)&&!op(x->value.first,y))//equality among the comparison operators, if true the element is found
 	{
-		const_MyIterator<treepair> i{x,tree_maximum()};
+		const_iterator i{x,tree_maximum()};
 		return i;
 	}
 
@@ -175,11 +249,12 @@ void clear_part(Node<treepair>* x) noexcept{
 		clear_part(x->left);
 		clear_part(x->right);
 		delete x;
+		
 	}
 }
 
 
-void balance_recursion(std::vector<Node<treepair>> to_split) noexcept{
+void balance_recursion(std::vector<Node<treepair>> to_split)  {
 /**
 	Accessory function to fill the binary search tree in a balanced fashion
 
@@ -189,6 +264,7 @@ void balance_recursion(std::vector<Node<treepair>> to_split) noexcept{
 		insert(temp1.value);//add the node to the bst
 	}else if(to_split.size()==2){//if vector has 2 elements
 		Node<treepair> temp1 =*(to_split.begin());
+			
 		insert(temp1.value);//add first element
 		Node<treepair> temp2 =*(to_split.begin()+1);
 		insert(temp2.value);//add second element(order not important)
@@ -210,128 +286,85 @@ void balance_recursion(std::vector<Node<treepair>> to_split) noexcept{
 	balance_recursion(two);
 	}
 }
-
 public:
-	//custom creator
-	bst()
-	:root{nullptr} {std::cout<<"binary tree created"<<std::endl;}
-
-	~bst(){
-	std::cout<<"destructor on bst"<<std::endl;  
-	//clear();
-	}
-//************copy semantics
-	//copy constructor -- deep copy
-	bst(const bst& bintree)
-	:root{} {
-		if(!bintree.isEmpty()){
-		root = new Node<treepair>{bintree.root->value};
-		copy_part(bintree.root);//calls a recursive function that fills the new bst	
-		}	
-	}
- 
-
-  	// copy assignment -- deep copy
-	bst& operator=(const bst& bintree){
-		
-		if(&bintree == this)//check for self reference
-        	    return *this;
-		clear();//empties the lhs bst
-		if(bintree.isEmpty()) return *this;	
-		insert(bintree.root->value);//inserts the root of the bst to copy
-		copy_part(bintree.root);//calls a recursive function that fills the new bst	
-		return *this;
-	}
-	
-	
-
-
-	//**************************MOVE SEMANTICS(done as default)
-	//move constructor
-	bst(bst&& bintree) : root{std::move(bintree.root)}{}
-	// move assignment
- 	bst& operator=(bst&& bintree) noexcept{
-    		root = std::move(bintree.root);
-   		return *this;
-  	}
-
-
 
 //*********************BEGIN AND END
 
-MyIterator<treepair> begin() noexcept{
+iterator begin() noexcept{
 /**
 	retuns a regular iterator pointing at the first element of the tree walk
 */
-	return MyIterator<treepair>{tree_minimum(),tree_maximum()};
+	return iterator{tree_minimum(),tree_maximum()};
 }
   
-const_MyIterator<treepair> begin() const noexcept{
+const_iterator begin() const noexcept{
 /**
 	retuns a cons_iterator pointing at the first element of the tree walk
 */
-	return const_MyIterator<treepair>{tree_minimum(),tree_maximum()};
+	return const_iterator{tree_minimum(),tree_maximum()};
 }
 
 
-const_MyIterator<treepair> cbegin() const noexcept{
+const_iterator cbegin() const noexcept{
 /**
 	retuns a cons_iterator pointing at the first element of the tree walk
 */
-	return const_MyIterator<treepair>{tree_minimum(),tree_maximum()};
+	return const_iterator{tree_minimum(),tree_maximum()};
 }
 
 
 
 
-MyIterator<treepair> end() noexcept{
+iterator end() noexcept{
 /**
 	retuns a regular iterator pointing at the past-the-last-element of the tree walk
 */
-	return MyIterator<treepair>{nullptr,tree_maximum()};
+	return iterator{nullptr,tree_maximum()};
 
 }
 
 
-const_MyIterator<treepair> end() const noexcept{
+const_iterator end() const noexcept{
 /**
 	retuns a cons_iterator pointing at the past-the-last-element of the tree walk
 */
-	return const_MyIterator<treepair>{nullptr,tree_maximum()};
+	return const_iterator{nullptr,tree_maximum()};
 }
 
 
-const_MyIterator<treepair> cend() const noexcept{
+const_iterator cend() const noexcept{
 /**
 	retuns a cons_iterator pointing at the past-the-last-element of the tree walk
 */
-	return const_MyIterator<treepair>{nullptr,tree_maximum()};
+	return const_iterator{nullptr,tree_maximum()};
 }
 
 
 //**************************INSERTION
-std::pair<MyIterator<treepair>,bool> insert(const treepair& z) {
+std::pair<iterator,bool> insert(const treepair& z){
 /**
 	Inserts a new element of the type treepair into the bst. It works with lvalues.
 	-If the key is not present it creates a new node and inserts it into the bst keeping intact the binary-search-tree property then it just returns am std::pair containing an iterator to the new node and a boolean saying "true"	
 	- If the key is already present it just returns an iterator to that element and a boolean saying "false"
 
 */
-
-	MyIterator<treepair> found = find(z.first);//searches for the key
+std::cout<<"Inserting pair "<< z << std::endl;
+	iterator found = find(z.first);//searches for the key
 
 	if(found !=end()){//if it is already present
-	 	std::pair<MyIterator<treepair>,bool> x{found,false};//creates the output pair
+	 	std::pair<iterator,bool> x{found,false};//creates the output pair
  		return x;//returns the wanted pair
 	}
 	//else creates a new node and inserts it
 	Node<treepair>* newnode_z = new Node<treepair>{z};
 	
+	if (newnode_z == nullptr) throw FullMemoryException{};
+	
 	if(isEmpty())//empty tree
 	{	
 		root = newnode_z;//inserted node is the root
-		MyIterator<treepair> x_root {root,root};//creates the pointer to the root
-		std::pair<MyIterator<treepair>,bool> to_return ={x_root,true};//creates the output pair
+		iterator x_root {root,root};//creates the pointer to the root
+		std::pair<iterator,bool> to_return ={x_root,true};//creates the output pair
         	return to_return;//returns the wanted pair
 	}
 	//**
@@ -354,13 +387,13 @@ std::pair<MyIterator<treepair>,bool> insert(const treepair& z) {
 		(*y).left = newnode_z;//now we identify the correct position of the new node accordingly to the parent
 	else (*y).right = newnode_z;
 	//Now we have to return the iterator to the node we inserted
-	MyIterator<treepair> x_ret{newnode_z,tree_maximum()};//create iterator
-	std::pair<MyIterator<treepair>,bool> to_return ={x_ret,true};//create pair
+	iterator x_ret{newnode_z,tree_maximum()};//create iterator
+	std::pair<iterator,bool> to_return ={x_ret,true};//create pair
         return to_return;//return pair
 }
 
 
-std::pair<MyIterator<treepair>,bool> insert(treepair&& z) {
+std::pair<iterator,bool> insert(treepair&& z) {
 /**
 	Inserts a new element of the type treepair into the bst. It works with rvalues.
 	-If the key is not present it creates a new node and inserts it into the bst keeping intact the binary-search-tree property then it just returns am std::pair containing an iterator to the new node and a boolean saying "true"	
@@ -373,15 +406,16 @@ std::pair<MyIterator<treepair>,bool> insert(treepair&& z) {
 
 
 //**********************************EMPLACE
-template< class... Types >
-std::pair<MyIterator<treepair>,bool> emplace(Types&&... args){
-treepair newelement{args...};
-std::pair<MyIterator<treepair>,bool> x = insert(newelement);
+
+template< typename... Types >
+std::pair<iterator,bool> emplace(Types&&... args) {
+treepair newelement{std::forward<Types>(args)...};
+std::pair<iterator,bool> x = insert(newelement);
 return x;
 }
 //***********************************FIND
 
-MyIterator<treepair> find(const key& x) {
+iterator find(const key& x) noexcept{
 /**
 	Finds the element whose key is the given argument
 	Returns a regular iterator pointing to that element
@@ -392,7 +426,7 @@ MyIterator<treepair> find(const key& x) {
 
 
 
-const_MyIterator<treepair> find(const key& x) const
+const_iterator find(const key& x) const noexcept
 {
 /**
 	Finds the element whose key is the given argument
@@ -404,13 +438,13 @@ const_MyIterator<treepair> find(const key& x) const
 
 //****************************DELETE
 
-void erase(const key& x) {
+void erase(const key& x) noexcept{
 /**
 	Removes the element from the tree with the corresponding key. If the key is not present nothing is done.
 	The removal leaves the binary-search-tree property intact.
 
 */
-	MyIterator<treepair> to_remove = find(x);//finds the element to remove, if present
+	iterator to_remove = find(x);//finds the element to remove, if present
 	Node<treepair>* remove = &(*to_remove);//we change the type of the element to remove from iterator to regular pointer;
 
 	if (remove == nullptr)//The key has not been found
@@ -451,7 +485,7 @@ void clear() noexcept{
 	Clears and empties the whole tree. Leaves an empty tree.
 */
 	clear_part(root);
-	root = nullptr;//ensures that there is no root
+	root = nullptr;
 }
 
 
@@ -471,7 +505,7 @@ value& operator[](const key& x) {
 
 	value newitem = value{};//create default new value
 	treepair newpair = treepair{x,newitem};//create new pair to insert		
-	std::pair<MyIterator<treepair>,bool> v = insert(newpair);//we insert the new pair anyway. If the key is already present nothing will happen and the output will still be a valid iterator
+	std::pair<iterator,bool> v = insert(newpair);//we insert the new pair anyway. If the key is already present nothing will happen and the output will still be a valid iterator
 	return (*(v.first)).value.second;//returns the value of the inserted(or already present) pair
 }
 
@@ -487,7 +521,7 @@ value& operator[](key&& x) {
 
 
 //************************************************BALANCE
-void balance() noexcept{
+void balance() {
 /**
 	Reshapes the bst to become balanced
 
@@ -499,6 +533,7 @@ void balance() noexcept{
 	//fills the new vector with the nodes of the bst in tree walk order
 	for(auto& beginning : *this)
 	{
+		
 		container.push_back(beginning);
 	}
 	clear();//empties the old bst
