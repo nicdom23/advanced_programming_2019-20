@@ -3,7 +3,7 @@
 
 
 struct FullMemoryException{};
-//struct ExpiredIterator{};//exception to throw if iterator expires
+
 /////////////BINARY SEARCH TREE CLASS
 
 template<class key,class value,typename cmp = std::less<key>>
@@ -26,25 +26,20 @@ public:
 struct const_iterator : public const_MyIterator<treepair>{
 public:	
 	const_iterator(Node<treepair>* a, Node<treepair>* b): const_MyIterator<treepair>(a,b){}
-	//trial of solving the iterator expiration problem	
-	/*const_iterator operator++(){
-		if(this->last != tree_maximum())
-			this->last = tree_maximum();
-		return const_MyIterator<treepair>::operator++();	
-	}*/
+	
 
 };
 	cmp op;//this is the comparison operator
 
 	Node<treepair>* root;//pointer to the root node
-
+	
 	//custom creator
 	bst()
-	:root{nullptr} {std::cout<<"binary tree created"<<std::endl;}
+	:root{nullptr}{std::cout<<"binary tree created"<<std::endl;}
 
 	~bst(){
 	std::cout<<"destructor on bst"<<std::endl;
-	//clear();
+	clear();
 	}
 //************copy semantics
 	//copy constructor -- deep copy
@@ -52,6 +47,7 @@ public:
 	:root{} {
 		if(!bintree.isEmpty()){
 		root = new Node<treepair>{bintree.root->value};
+		
 			if (root == nullptr) throw FullMemoryException{};
 		copy_part(bintree.root);//calls a recursive function that fills the new bst	
 		}	
@@ -67,6 +63,7 @@ public:
 		if(bintree.isEmpty()) return *this;	
 		insert(bintree.root->value);//inserts the root of the bst to copy
 		copy_part(bintree.root);//calls a recursive function that fills the new bst	
+		
 		return *this;
 	}
 	
@@ -183,21 +180,18 @@ iterator tree_search(Node<treepair>* x, const key& y) noexcept{
 	Returns a regular iterator
 */	
 
-	if(x == nullptr)//element not found,we have reached a dead end
+	if(x == nullptr)//element not found, we have reached a dead end
 	{
 		return end();
-	}
-	else if ( !op(y,x->value.first)&&!op(x->value.first,y))//equality among the comparison operators, if true the element is found
+	}else if(op(y , x->value.first)) //element yet to be found, here the keys are compared and the wanted left or right sub-tree is choosen
+		return tree_search(x->left,y);
+	else if	(op(x->value.first,y))
+		return tree_search(x->right,y);
+	else //equality among the comparison operators, if true the element is found
 	{
 		iterator i{x,tree_maximum()};
 		return i;
 	}
-	
-	//element yet to be found, here the keys are compared and the wanted left or right sub-tree is choosen
-	if(op(y , x->value.first) )
-		return tree_search(x->left,y);
-	else 
-		return tree_search(x->right,y);
 }
 
 const_iterator tree_search(Node<treepair>* x, const key& y) const noexcept{
@@ -208,18 +202,15 @@ const_iterator tree_search(Node<treepair>* x, const key& y) const noexcept{
 	if(x == nullptr)//element not found, we have reached a dead end
 	{
 		return end();
-	}
-	else if ( !op(y,x->value.first)&&!op(x->value.first,y))//equality among the comparison operators, if true the element is found
+	}else if(op(y , x->value.first)) //element yet to be found, here the keys are compared and the wanted left or right sub-tree is choosen
+		return tree_search(x->left,y);
+	else if	(op(x->value.first,y))
+		return tree_search(x->right,y);
+	else //equality among the comparison operators, if true the element is found
 	{
 		const_iterator i{x,tree_maximum()};
 		return i;
 	}
-
-	//element yet to be found, here the keys are compared and the wanted left or right sub-tree is choosen
-	if(op(y , x->value.first)) 
-		return tree_search(x->left,y);
-	else	
-		return tree_search(x->right,y);
 }
 
 
@@ -374,18 +365,18 @@ std::cout<<"Inserting pair "<< z << std::endl;
 	Node<treepair>*	x = root;//this will be one of the children of y
 	while(x != nullptr){//until we find an empty space
 		y = x;
-		if (op((*newnode_z).value.first,(*x).value.first))//here we apply the operator on the key of the element to insert and the key of the element we are inspecting
-			x = (*x).left;
-		else x= (*x).right;
+		if (op(newnode_z->value.first,x->value.first))//here we apply the operator on the key of the element to insert and the key of the element we are inspecting
+			x = x->left;
+		else x= x->right;
 		}
-	(*newnode_z).parent = y; //so y is the parent of the new node
+	newnode_z->parent = y; //so y is the parent of the new node
 	
 	if (y == nullptr){
 		root = newnode_z;
 		}
 	else if(op(   (*newnode_z).value.first,(*y).value.first  ))//key check using the comparison operator		
-		(*y).left = newnode_z;//now we identify the correct position of the new node accordingly to the parent
-	else (*y).right = newnode_z;
+		y->left = newnode_z;//now we identify the correct position of the new node accordingly to the parent
+	else y->right = newnode_z;
 	//Now we have to return the iterator to the node we inserted
 	iterator x_ret{newnode_z,tree_maximum()};//create iterator
 	std::pair<iterator,bool> to_return ={x_ret,true};//create pair

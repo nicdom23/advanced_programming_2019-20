@@ -96,11 +96,7 @@ int main () {
 	bintree_copy.erase(5);
 	std::cout<<"Copy bst after erase :"<<bintree_copy<<std::endl;
 	std::cout<<"Original bst :"<<bintree<<std::endl;
-
-	
-	
-	
-	/**/
+		
 	std::cout<<"Test of copy constructor"<<std::endl;
 	b_t bintree_copy_by_constructor{bintree};//made a copy constructor tree//construcor 6
 	
@@ -114,8 +110,8 @@ int main () {
 	std::cout<<"Copied bst"<<bintree_copy_by_constructor<<std::endl;
 
 	std::cout<<std::endl<<"Test of move constructor"<<std::endl;	
-	b_t bintree_move{std::move(bintree_copy_by_constructor)};//construcor 7
-	std::cout<<"Moved bst"<<bintree_move<<std::endl;
+	////b_t bintree_move{std::move(bintree_copy_by_constructor)};//constructor 7 IS THIS THE SOURCE OF ERROR? Yes, I cannot delete a bst in a moved-from state
+	//std::cout<<"Moved bst"<<bintree_move<<std::endl;
 	
 
 	int i = 99;
@@ -130,7 +126,7 @@ int main () {
 	std::cout<<"SEARCHING FOR KEY 100  -> returned value:"<<bintree[100]<<std::endl;
 	std::cout<<"SEARCHING FOR KEY 5  -> returned value :"<<bintree[5]<<std::endl;
  	
-
+	
 	std::cout<<std::endl<<"Test of const type bst"<<std::endl;
 	const b_t const_bintree = b_t{bintree};//construcor 8
 	std::cout<<const_bintree<<std::endl;
@@ -155,8 +151,8 @@ int main () {
 
 	std::cout<<"###########################TEST ON BALANCE##########"<<std::endl;
 	//std::cout<<bintree<<std::endl;
-	//bintree.balance();
-	bintree.clear();
+	bintree.balance();
+	//bintree.clear();
 	std::cout<<bintree<<std::endl;		
 	std::cout<<"counted "<< bintree.size()<<" nodes "<<std::endl;	
 	
