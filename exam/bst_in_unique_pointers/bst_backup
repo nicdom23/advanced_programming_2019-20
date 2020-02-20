@@ -119,7 +119,7 @@ private:
 	//check if argument has left child
 	if((y->left).get() !=nullptr)
 		x = (y->left).get();
-	else return y;//else the given argument is the most left sided node	
+	else return y;//else the argument is the most left sided node	
 	
 	//now we find the most left sided node
 	while ((x->left).get() != nullptr)
@@ -219,6 +219,35 @@ const_iterator tree_search(Node<treepair>* x, const key& y) const noexcept{
 		return tree_search((x->right).get(),y);
 }
 
+/**
+
+void transplant(Node<treepair>* a, std::unique_ptr<treepair> b) noexcept{
+
+	//Accessory function that serves to rearreange the nodes before and after deletion 
+	//a 's place is exchanged with b's place
+
+ 
+	if ((a->parent).get() == nullptr)//a is the root, then b becomes the root
+		root = b.get();
+	
+	else if (a == (a->parent->left)){//a is not the root, a is the left child of his parent		
+		Node<treepair>* temp1 = a->parent->left.release();
+		a->parent->left.reset(b.release());//then b becomes the new left child of a's parent
+	}
+	else{
+		Node<treepair>* temp2 = a->parent->right.release();
+		a->parent->right.reset(b.release());//else b becomes the new right child of a's parent
+			
+	}
+	if (b != nullptr){ 	
+		std::cout<<"print declenched"<<std::endl;
+		Node<treepair>* temp3 = (b->parent).release();	
+		(b->parent).reset(a->parent.release()); //if b is an actual node, then b's parent becomes a's parent
+	}
+}
+
+*/
+
 
 void transplant(Node<treepair>* a, Node<treepair>* b) noexcept{
 
@@ -260,11 +289,10 @@ void clear_part(Node<treepair>* x) noexcept{
 	//Accessory function that sweeps the whole tree and deletes all the nodes
 	if(x != nullptr){
 	std::cout<<"inside "<<std::endl;
-	if((x->left).get()!=nullptr)
+	if(x->left!=nullptr)
 	x->left.reset(nullptr);
 	else std::cout<<"is nullptr"<<std::endl;
-	
-	if((x->right).get()!=nullptr)
+	if(x->right!=nullptr)
 	x->right.reset(nullptr);
 	else std::cout<<"is nullptr"<<std::endl;
 	}	
@@ -404,7 +432,6 @@ std::cout<<"Inserting pair "<< z << std::endl;
 			x = (x->left).get();
 		else x= (x->right).get();
 		}
-	//REWROTE newnode_z -> parent = y;	
 	Node<treepair>* temp1 = (newnode_z->parent).release();
 	(newnode_z->parent).reset( y ); //so y is the parent of the new node
 	(void)temp1;
@@ -413,14 +440,12 @@ std::cout<<"Inserting pair "<< z << std::endl;
 		root = newnode_z;
 		}
 	else if(op(   newnode_z->value.first, y->value.first  )){//key check using the comparison operator	
-	//REWROTE y->left = newnode_z;
 		Node<treepair>* temp2 = (y->left).release();	
 		(y->left).reset(newnode_z);//now we identify the correct position of the new node accordingly to the parent
 		(void) temp2;
 	
 		//std::unique_ptr<Node<treepair>> temporary2{temp2};
 	}else{
-	//REWROTE y->right = newnode_z
 	Node<treepair>* temp3 =(y->right).release();
  	(y->right).reset(newnode_z);
 	(void)temp3;

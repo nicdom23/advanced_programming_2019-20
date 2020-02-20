@@ -31,25 +31,23 @@ public:
 };
 	cmp op;//this is the comparison operator
 
-	Node<treepair>* root;//pointer to the root node
+	std::unique_ptr<Node<treepair>> root;//pointer to the root node
 	
-	//custom creator
+	//default creator
 	bst()
-	:root{nullptr}{std::cout<<"binary tree created"<<std::endl;}
+	{std::cout<<"binary tree created"<<std::endl;}
 
 	~bst(){
 	std::cout<<"destructor on bst"<<std::endl;
-	clear();
+	root.reset();
 	}
 //************copy semantics
 	//copy constructor -- deep copy
 	bst(const bst& bintree) 
 	:root{} {
 		if(!bintree.isEmpty()){
-		root = new Node<treepair>{bintree.root->value};
-		
-			if (root == nullptr) throw FullMemoryException{};
-		copy_part(bintree.root);//calls a recursive function that fills the new bst	
+		root.reset(bintree.root.get());//destroys the old tree
+		copy_part(bintree.root.get());//calls a recursive function that fills the new bst	
 		}	
 	}
  
@@ -62,7 +60,7 @@ public:
 		clear();//empties the lhs bst
 		if(bintree.isEmpty()) return *this;	
 		insert(bintree.root->value);//inserts the root of the bst to copy
-		copy_part(bintree.root);//calls a recursive function that fills the new bst	
+		copy_part(bintree.root.get());//calls a recursive function that fills the new bst	
 		
 		return *this;
 	}
@@ -84,6 +82,7 @@ public:
 
 
 
+/*
 
 private:
 //We collect here a few private accessory functions
@@ -119,7 +118,7 @@ private:
 	//check if argument has left child
 	if((y->left).get() !=nullptr)
 		x = (y->left).get();
-	else return y;//else the given argument is the most left sided node	
+	else return y;//else the argument is the most left sided node	
 	
 	//now we find the most left sided node
 	while ((x->left).get() != nullptr)
@@ -220,6 +219,8 @@ const_iterator tree_search(Node<treepair>* x, const key& y) const noexcept{
 }
 
 
+
+
 void transplant(Node<treepair>* a, Node<treepair>* b) noexcept{
 
 	//Accessory function that serves to rearreange the nodes before and after deletion 
@@ -255,16 +256,16 @@ std::cout<<"into transplant"<<std::endl;
 std::cout<<"outo transplant"<<std::endl;
 }
 
+*/
 void clear_part(Node<treepair>* x) noexcept{
 
 	//Accessory function that sweeps the whole tree and deletes all the nodes
 	if(x != nullptr){
 	std::cout<<"inside "<<std::endl;
-	if((x->left).get()!=nullptr)
+	if(x->left!=nullptr)
 	x->left.reset(nullptr);
 	else std::cout<<"is nullptr"<<std::endl;
-	
-	if((x->right).get()!=nullptr)
+	if(x->right!=nullptr)
 	x->right.reset(nullptr);
 	else std::cout<<"is nullptr"<<std::endl;
 	}	
@@ -274,9 +275,10 @@ void clear_part(Node<treepair>* x) noexcept{
 		delete x;
 		
 	}*/
+
 }
 
-
+/*
 void balance_recursion(std::vector<Node<treepair>> to_split)  {
 
 
@@ -311,7 +313,8 @@ void balance_recursion(std::vector<Node<treepair>> to_split)  {
 
 
 
-
+*/
+/*
 public:
 
 //-*********************BEGIN AND END
@@ -365,7 +368,7 @@ const_iterator cend() const noexcept{
 	return const_iterator{nullptr,tree_maximum()};
 }
 
-
+*/
 //-**************************INSERTION
 std::pair<iterator,bool> insert(const treepair& z){
 
@@ -388,8 +391,9 @@ std::cout<<"Inserting pair "<< z << std::endl;
 	
 	if(isEmpty())//empty tree
 	{	
-		root = newnode_z;//inserted node is the root
-		iterator x_root {root,root};//creates the pointer to the root
+			
+		root.reset(newnode_z);//inserted node is the root
+		iterator x_root {root.get(),root.get()};//creates the pointer to the root
 		std::pair<iterator,bool> to_return ={x_root,true};//creates the output pair
         	return to_return;//returns the wanted pair
 	}
@@ -404,7 +408,6 @@ std::cout<<"Inserting pair "<< z << std::endl;
 			x = (x->left).get();
 		else x= (x->right).get();
 		}
-	//REWROTE newnode_z -> parent = y;	
 	Node<treepair>* temp1 = (newnode_z->parent).release();
 	(newnode_z->parent).reset( y ); //so y is the parent of the new node
 	(void)temp1;
@@ -413,14 +416,12 @@ std::cout<<"Inserting pair "<< z << std::endl;
 		root = newnode_z;
 		}
 	else if(op(   newnode_z->value.first, y->value.first  )){//key check using the comparison operator	
-	//REWROTE y->left = newnode_z;
 		Node<treepair>* temp2 = (y->left).release();	
 		(y->left).reset(newnode_z);//now we identify the correct position of the new node accordingly to the parent
 		(void) temp2;
 	
 		//std::unique_ptr<Node<treepair>> temporary2{temp2};
 	}else{
-	//REWROTE y->right = newnode_z
 	Node<treepair>* temp3 =(y->right).release();
  	(y->right).reset(newnode_z);
 	(void)temp3;
@@ -443,7 +444,7 @@ std::pair<iterator,bool> insert(treepair&& z) {
 	return insert(z);//it just invokes the lvalue function
 
 }
-
+*/
 
 //-**********************************EMPLACE
 
@@ -453,6 +454,7 @@ treepair newelement{std::forward<Types>(args)...};
 std::pair<iterator,bool> x = insert(newelement);
 return x;
 }
+*/
 //-***********************************FIND
 
 iterator find(const key& x) noexcept{
@@ -542,7 +544,7 @@ std::cout<<"find made"<<std::endl;
 	//delete remove;//there is no need to free the memory anymore
 	
 }
-
+*/
 //-****************************CLEAR
 void clear() noexcept{
 

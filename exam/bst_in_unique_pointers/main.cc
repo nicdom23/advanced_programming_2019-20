@@ -22,9 +22,9 @@ int main () {
 	//emptyBST[5]; works but adds an element to the aray
 	std::cout<<"Is it empty? "<<emptyBST.isEmpty()<<std::endl;
 	std::cout<<"Print of empty bst: "<<emptyBST<<std::endl;
-	b_t::const_iterator iterat_begin = emptyBST.cbegin();	
-	b_t::const_iterator iterat_end = emptyBST.cend();
-	(void) iterat_begin; (void) iterat_end;
+	//b_t::const_iterator iterat_begin = emptyBST.cbegin();	
+	//b_t::const_iterator iterat_end = emptyBST.cend();
+	//(void) iterat_begin; (void) iterat_end;
 	std::cout<<"before empty constructor"<<std::endl;	
 	b_t copied_emptyBST{emptyBST};//construcor 2
 	copied_emptyBST = emptyBST;	
@@ -44,7 +44,7 @@ int main () {
 	bintree.emplace(3,"three");
 	bintree.emplace(7,"seven");
 	bintree.emplace(9,"nine");
-	bintree.emplace(1,"one");
+	bintree.emplace(10,"ten");
 	std::cout<<bintree<<std::endl;
 	bintree.clear();
 /*	bintree.emplace(1,"one");
