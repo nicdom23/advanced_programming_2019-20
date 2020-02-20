@@ -3,8 +3,42 @@
 #include <iterator>     // std::iterator, std::input_iterator_tag
 #include <vector>       // std::vector
 
+//*************************************NODE  //first class to include
+
 template<class T>
-class Node;
+class Node{
+/**
+	A node for the class bst
+*/
+	T value;
+	Node<T>* left;
+	Node<T>* right;
+	Node<T>* parent;
+public:
+	//custom constructor
+	Node(T element)
+	:value{element},left{nullptr},right{nullptr},parent{nullptr}{}
+
+	//default destructor
+	~Node()=default;
+
+	//friend classes that can access node parameters
+	template<class key,class value,typename cmp>
+	friend class bst;
+
+	template<class S>
+	friend class MyIterator;
+
+	template<class S>
+	friend class const_MyIterator;
+
+	//friend function to print the content of the node
+	friend
+	std::ostream& operator<<(std::ostream& os, const Node<T>& x){
+		os<<x.value;
+		return os;
+	}
+};
 
 template<class key,class value,typename cmp >
 class bst;
@@ -103,42 +137,7 @@ public:
 	const Node<T>& operator*() {return *pointer;}//HERE IS THE DIFFERENCE	
 };
 
-//*************************************NODE
 
-template<class T>
-class Node{
-/**
-	A node for the class bst
-*/
-	T value;
-	Node<T>* left;
-	Node<T>* right;
-	Node<T>* parent;
-public:
-	//custom constructor
-	Node(T element)
-	:value{element},left{nullptr},right{nullptr},parent{nullptr}{}
-
-	//default destructor
-	~Node()=default;
-
-	//friend classes that can access node parameters
-	template<class key,class value,typename cmp>
-	friend class bst;
-
-	template<class S>
-	friend class MyIterator;
-
-	template<class S>
-	friend class const_MyIterator;
-
-	//friend function to print the content of the node
-	friend
-	std::ostream& operator<<(std::ostream& os, const Node<T>& x){
-		os<<x.value;
-		return os;
-	}
-};
 
 //custom function to print the content of a pair
 template<typename T1,typename T2>
@@ -628,6 +627,19 @@ void balance_recursion(std::vector<Node<treepair>> to_split){
 	balance_recursion(two);
 	}
 }
+//************************SIZE
+size_t size() const {
+/**
+	Returns the size of the bst
+*/
+
+	size_t counter{0};
+	for ( auto& i : *this ){
+		(void)i;
+		++counter;	
+	}
+	return counter;
+}
 
 //************************************************* PRINT
 
@@ -791,6 +803,11 @@ int main () {
 	std::cout<<"###########################TEST ON BALANCE##########"<<std::endl;
 	std::cout<<bintree<<std::endl;
 	bintree.balance();
-	std::cout<<bintree<<std::endl;			
+	std::cout<<bintree<<std::endl;		
+	std::cout<<"counted "<< bintree.size()<<" nodes "<<std::endl;	
+	
+	std::cout<<const_bintree<<std::endl;
+	std::cout<<"counted "<< const_bintree.size()<<" nodes "<<std::endl;	
+	//const_MyIterator<treepair> iterate = const_bintree[70]; //subscription doesn't work on constant bst-s	
 	return 0;
 }
