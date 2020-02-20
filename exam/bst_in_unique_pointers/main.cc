@@ -45,7 +45,14 @@ int main () {
 	bintree.emplace(7,"seven");
 	bintree.emplace(9,"nine");
 	bintree.emplace(10,"ten");
+	std::cout<<"START erase"<<std::endl;
+	bintree.erase(3);
+	//bintree.erase(7);
+	//bintree.erase(9);
+	//bintree.erase(10);
+	
 	std::cout<<bintree<<std::endl;
+	std::cout<<"END erase"<<std::endl;	
 	bintree.clear();
 /*	bintree.emplace(1,"one");
 	bintree.emplace(5,"five");

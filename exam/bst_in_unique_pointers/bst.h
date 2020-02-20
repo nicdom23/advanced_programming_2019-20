@@ -234,6 +234,7 @@ std::cout<<"into transplant"<<std::endl;
 		std::cout<<"case2"<<std::endl;
 		Node<treepair>* temp1 = a->parent->left.release();
 		a->parent->left.reset(b);//then b becomes the new left child of a's parent
+(void) temp1;
 		//std::cout<<"!!"<<std::endl;
 		//if(temp1 == nullptr) std::cout<<"!nullptr!"<<std::endl;
 		//std::unique_ptr<Node<treepair>> temporary1{temp1};
@@ -242,14 +243,14 @@ std::cout<<"into transplant"<<std::endl;
 		std::cout<<"case3"<<std::endl;		
 		Node<treepair>* temp2 = a->parent->right.release();
 		a->parent->right.reset(b);//else b becomes the new right child of a's parent
-	
+	(void) temp2;
 		//std::unique_ptr<Node<treepair>> temporary2{temp2};
 	}
 	if (b != nullptr){ 	
 		std::cout<<"extra point declenched"<<std::endl;
 		Node<treepair>* temp3 = (b->parent).release();	
 		(b->parent).reset(a->parent.release()); //if b is an actual node, then b's parent becomes a's parent
-	
+	(void)temp3;
 		//std::unique_ptr<Node<treepair>> temporary3{temp3};
 	}
 std::cout<<"outo transplant"<<std::endl;
@@ -408,6 +409,7 @@ std::cout<<"Inserting pair "<< z << std::endl;
 	Node<treepair>* temp1 = (newnode_z->parent).release();
 	(newnode_z->parent).reset( y ); //so y is the parent of the new node
 	(void)temp1;
+	//delete temp1;
 	//std::unique_ptr<Node<treepair>> temporary1{temp1};
 	if (y == nullptr){
 		root = newnode_z;
@@ -417,13 +419,14 @@ std::cout<<"Inserting pair "<< z << std::endl;
 		Node<treepair>* temp2 = (y->left).release();	
 		(y->left).reset(newnode_z);//now we identify the correct position of the new node accordingly to the parent
 		(void) temp2;
-	
+		//delete temp2;
 		//std::unique_ptr<Node<treepair>> temporary2{temp2};
 	}else{
 	//REWROTE y->right = newnode_z
 	Node<treepair>* temp3 =(y->right).release();
  	(y->right).reset(newnode_z);
 	(void)temp3;
+	//delete temp3;
 	//std::unique_ptr<Node<treepair>> temporary3{temp3};
 	}	
 	//Now we have to return the iterator to the node we inserted
@@ -513,10 +516,12 @@ std::cout<<"find made"<<std::endl;
 			transplant(y_,(y_->right).get());
 			Node<treepair>* temp1 = y_->right.release();
 			y_->right.reset((remove->right).release());
+(void) temp1;
 			std::cout<<"inside if2"<<std::endl;
 			//std::unique_ptr<Node<treepair>> temporary1{temp1};
 			Node<treepair>* temp2 = y_->right->parent.release();
 			y_->right->parent.reset(y_);
+(void) temp2;
 			//std::unique_ptr<Node<treepair>> temporary2{temp2};
 			std::cout<<"inside if3"<<std::endl;	
 			}
@@ -526,13 +531,13 @@ std::cout<<"find made"<<std::endl;
 		Node<treepair>* temp3 = y_->left.release() ;
 		y_->left.reset((remove->left).release()); //the left child and its subtree is inherited without changes
 		
-		
+		(void)temp3;
 		//std::unique_ptr<Node<treepair>> temporary3{temp3};		
 		
 		Node<treepair>* temp4 = y_->left->parent.release();
 		y_->left->parent.reset( y_ ); //we adjust the left child of the node to remove with its new parent
 		
-		
+		(void) temp4;
 		//std::unique_ptr<Node<treepair>> temporary4{temp4};		
 		
 		std::cout<<"almost remove case made"<<std::endl;
